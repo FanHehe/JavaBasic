@@ -9,62 +9,62 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class MyThreadPool {
 
-	public static final int value = 5;
+    public static final int value = 5;
 
-	public static void main(String[] args) {
-		handleFixedThreadPool();
-		handleCachedThreadPool();
-		handleSingleThreadExecutor();
-		handlePrimaryThreadPool();
-	}
+    public static void main(String[] args) {
+        handleFixedThreadPool();
+        handleCachedThreadPool();
+        handleSingleThreadExecutor();
+        handlePrimaryThreadPool();
+    }
 
-	public static void handleFixedThreadPool() {
-		ExecutorService pool = Executors.newFixedThreadPool(value);
+    public static void handleFixedThreadPool() {
+        ExecutorService pool = Executors.newFixedThreadPool(value);
 
-		pool.submit(new Runnable() {
-			@Override
-			public void run () {
-				System.out.println("hehe");
-			}
-		});
-	}
+        pool.submit(new Runnable() {
+            @Override
+            public void run () {
+                System.out.println("hehe");
+            }
+        });
+    }
 
-	public static void handleSingleThreadExecutor() {
-		ExecutorService pool = Executors.newSingleThreadExecutor();
+    public static void handleSingleThreadExecutor() {
+        ExecutorService pool = Executors.newSingleThreadExecutor();
 
-		pool.submit(new Runnable() {
-			@Override
-			public void run () {
-				System.out.println("hehe");
-			}
-		});
-	}
+        pool.submit(new Runnable() {
+            @Override
+            public void run () {
+                System.out.println("hehe");
+            }
+        });
+    }
 
-	public static void handleCachedThreadPool() {
-		ExecutorService pool = Executors.newCachedThreadPool();
+    public static void handleCachedThreadPool() {
+        ExecutorService pool = Executors.newCachedThreadPool();
 
-		pool.submit(new Runnable() {
-			@Override
-			public void run () {
-				System.out.println("hehe");
-			}
-		});
-	}
+        pool.submit(new Runnable() {
+            @Override
+            public void run () {
+                System.out.println("hehe");
+            }
+        });
+    }
 
-	public static void handlePrimaryThreadPool() {
-		int core = 5;
-		int maximum = 10;
-		long keepAliveTime = 0L;
-		TimeUnit unit = TimeUnit.MILLISECONDS;
-		LinkedBlockingQueue<Runnable> queue = new LinkedBlockingQueue<>();
+    public static void handlePrimaryThreadPool() {
+        int core = 5;
+        int maximum = 10;
+        long keepAliveTime = 0L;
+        TimeUnit unit = TimeUnit.MILLISECONDS;
+        LinkedBlockingQueue<Runnable> queue = new LinkedBlockingQueue<>();
 
-		ExecutorService singleThreadPool = makeThreadPool(1, 1, keepAliveTime, unit, queue);
-		ExecutorService fixedThreadPool = makeThreadPool(core, core, keepAliveTime, unit, queue);
-		ExecutorService cachedThreadPool = makeThreadPool(0, Integer.MAX_VALUE, 60L, TimeUnit.SECONDS,  new SynchronousQueue<Runnable>());
-		
-	}
+        ExecutorService singleThreadPool = makeThreadPool(1, 1, keepAliveTime, unit, queue);
+        ExecutorService fixedThreadPool = makeThreadPool(core, core, keepAliveTime, unit, queue);
+        ExecutorService cachedThreadPool = makeThreadPool(0, Integer.MAX_VALUE, 60L, TimeUnit.SECONDS,  new SynchronousQueue<Runnable>());
+        
+    }
 
-	/**
+    /**
      * Creates a new {@code ThreadPoolExecutor} with the given initial
      * parameters and default thread factory and rejected execution handler.
      * It may be more convenient to use one of the {@link Executors} factory
@@ -88,7 +88,7 @@ public class MyThreadPool {
      *         {@code maximumPoolSize < corePoolSize}
      * @throws NullPointerException if {@code workQueue} is null
      */
-	public static ThreadPoolExecutor makeThreadPool(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue) {
-		return new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
-	}
+    public static ThreadPoolExecutor makeThreadPool(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue) {
+        return new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
+    }
 }

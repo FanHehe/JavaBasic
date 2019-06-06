@@ -1,24 +1,24 @@
 public class BinaryNode extends Node {
 
-	BinaryNode () { super("", 2); }
-	BinaryNode (String data) { super(data, 2); }
-	BinaryNode (String data, int base) { super(data, base); }
+    BinaryNode () { super("", 2); }
+    BinaryNode (String data) { super(data, 2); }
+    BinaryNode (String data, int base) { super(data, base); }
 
-	public void setLeft (BinaryNode node) {
-		this.children[0] = node;
-	}
+    public void setLeft (BinaryNode node) {
+        this.children[0] = node;
+    }
 
-	public Node getLeft () {
-		return this.children[0];
-	}
+    public Node getLeft () {
+        return this.children[0];
+    }
 
-	public Node getRight () {
-		return this.children[1];
-	}
+    public Node getRight () {
+        return this.children[1];
+    }
 
-	public void setRight (BinaryNode node) {
-		this.children[1] = node;
-	}
+    public void setRight (BinaryNode node) {
+        this.children[1] = node;
+    }
 }
 
 

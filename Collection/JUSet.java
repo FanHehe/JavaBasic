@@ -4,23 +4,23 @@ import java.util.TreeSet;
 
 
 class JUSet {
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-	}
+    }
 
-	/**
-	 * add / remove
-	 * clear() / equals()
-	 */
-	public static void hanldeSet() {
-		
-	}
+    /**
+     * add / remove
+     * clear() / equals()
+     */
+    public static void hanldeSet() {
+        
+    }
 
-	public static void handleHashSet() {
+    public static void handleHashSet() {
 
-	}
+    }
 
-	public static void handleTreeSet() {
-		
-	}
+    public static void handleTreeSet() {
+        
+    }
 }
