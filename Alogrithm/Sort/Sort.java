@@ -10,7 +10,7 @@ public interface Sort<E extends Comparable<E>> {
 	}
 
 	default void print(List<E> list) {
-		out.printf("%20s",this.getClass());
+		out.printf("%20s",this.getClass().getName());
 		out.print("\t");
 		for (E item: list) {
 			out.print(item);

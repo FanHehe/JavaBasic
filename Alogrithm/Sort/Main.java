@@ -6,6 +6,9 @@ public class Main {
 	public static void main(String[] args) {
 
 		List<Sort<Integer>> sortList = new ArrayList<>(10);
+		// 原始
+		sortList.add(new Origin<Integer>()); 
+
 		// 交换排序
 		sortList.add(new QuickSort<Integer>());
 		sortList.add(new BubbleSort<Integer>());
