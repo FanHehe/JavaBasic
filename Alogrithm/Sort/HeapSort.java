@@ -6,21 +6,39 @@ public class HeapSort<E extends Comparable<E>> implements Sort<E> {
             return;
         }
 
-        // for (int size = list.size(), i = ((size - 1)/ 2); i >= 0; i--) {
-        //     E curr = list.get(i);
-        //     E left = list.get(2 * i + 1);
-        //     E right = list.get(2 * i + 2);
+        int size = list.size();
 
-        //     if (right != null && right.compareTo(list.get(i)) < 0) {
-        //         list.set(i, right);
-        //         list.set(2 * i + 2, curr);
-        //     }
+        for (int i = (size - 1) / 2; i >= 0; i--) {
+            adjustHeap(list, i, size - 1);
+        }
 
-        //     if (left != null && left.compareTo(list.get(i)) < 0) {
-        //         E temp = list.get(i);
-        //         list.set(i, left);
-        //         list.set(2 * i + 1, temp);
-        //     }
-        // }
+        for (int i = size - 1; i > 0; i--) {
+            E temp = list.get(0);
+            list.set(0, list.get(i));
+            list.set(i, temp);
+
+            adjustHeap(list, 0, i - 1);
+        }
+    }
+
+    public void adjustHeap(List<E> list, int i, int length) {
+
+        E temp = list.get(i);
+
+        for (int j = 2 * i + 1; j <= length; j = 2 * j + 1) {
+
+            if (j + 1 <= length && list.get(j + 1).compareTo(list.get(j)) > 0) {
+                j++;
+            }
+
+            if (list.get(j).compareTo(temp) > 0) {
+                list.set(i, list.get(j));
+                i = j;
+            } else {
+                break;
+            }
+        }
+
+        list.set(i, temp);
     }
 }
