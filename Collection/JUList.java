@@ -25,8 +25,9 @@ class JUList {
 
     /**
      * handleArrayList ArrayList 自己练习。
-     * int DEFAULT_CAPACITY = 8;
-     * 扩展速率：oldCapacity + oldCapacity >> 1 = 扩展一半
+     * int DEFAULT_CAPACITY = 10;
+     * 扩展速率：oldCapacity + oldCapacity >> 1 = 扩展1.5倍
+     *
      */
     public static void handleArrayList() {
         ArrayList<Integer> list = new ArrayList<>(1);

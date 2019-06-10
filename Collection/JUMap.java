@@ -3,10 +3,10 @@ import java.util.TreeMap;
 
 class JUMap {
 
-
     public static void main(String[] args) {
         handleHashMap();
         handleTreeMap();
+        handleConcurrentHashMap();
     }
 
     /**
@@ -28,21 +28,23 @@ class JUMap {
      * 拉链法
      * Object.hashCode(): native
      * String.hashCode(): s[0] * 31^(n-1) + s[1] * 31^(n-2) + ... + s[n-1]
-     * Node.hashCode(): Objects.hashCode(key) ^ Objects.hashCode(value);
+     * Node.hashCode(): java.util.Objects.hashCode(key) ^ Objects.hashCode(value);
      * Map.hash(): (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);
      * 扩容：
-     * 容量为2^n次方：(n - 1) & Map.hash(); === Map.hash() % (n - 1) 
+     * 默认容量1 << 4
+     * 容量为2^n次方：(n - 1) & Map.hash(); === Map.hash() % (n - 1)
      */
-    public static void handleHashMap() {
+    public static void handleHashMap() {}
 
-    }
+    /**
+     *
+     */
+    public static void handleConcurrentHashMap() {}
 
     /**
      * 红黑树，有序map
      * [handleTreeMap description]
      */
-    public static void handleTreeMap() {
-        
-    }
+    public static void handleTreeMap() {}
 }
 
