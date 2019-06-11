@@ -1,5 +1,6 @@
 import java.util.Queue;
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 
 public class JUQueue {
     public static void main(String[] args) {

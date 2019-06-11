@@ -25,6 +25,6 @@ public class BinaryNode extends Node {
 
 public class Name {
     public Name () {
-        System.out.println('xx');
+        System.out.println("xx");
     }
 }

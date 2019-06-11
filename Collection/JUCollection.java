@@ -1,4 +1,4 @@
-import java.uitl.Collection;
+import java.util.Collection;
 
 public  class JUCollection {
     public static void main() {
@@ -10,7 +10,7 @@ public  class JUCollection {
      * clear()
      * isEmpty()
      * contains()
-     * add() remove() 
+     * add() remove()
      * ==============
      * removeIf()
      */
