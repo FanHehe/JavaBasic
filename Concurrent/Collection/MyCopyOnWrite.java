@@ -14,14 +14,14 @@ public class MyCopyOnWrite {
      * 内部使用CopyOnWriteArrayList实现的。addIfAbsent
      */
     public static void handleCopyOnWriteArraySet() {
-        Set<Integer> set = new CopyOnWriteArraySet();
+        Set<Integer> set = new CopyOnWriteArraySet<>();
 
         set.add(1);
         set.add(2);
         set.add(1);
     }
     /**
-     * implements List<E> 
+     * implements List<E>
      * 内部一个ReenterantLock 实例进行lock
      */
     public static void handleCopyOnWriteArrayList() {

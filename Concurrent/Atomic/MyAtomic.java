@@ -22,7 +22,7 @@ public class MyAtomic {
      * incrementAndGet / decrementAndGet
      */
     public static void handleAtomicInteger() {
-        Integer value = new Integer(1);
+        Integer value = 1;
         AtomicInteger atomicValue = new AtomicInteger(value);
 
         atomicValue.getAndSet(2);
@@ -32,7 +32,7 @@ public class MyAtomic {
     }
 
     /**
-     * 
+     *
      */
     public static void handleAtomicReference() {
         String value = "123";

@@ -30,7 +30,7 @@ public class MyConcurrent {
      *             sizeCtl [0：默认值, -1：哈希表初始化ing, 大于0：类似threshold，表示阈值, 小于-1：有多个线程正在进行扩容]
      */
     public static void handleConcurrentHashMap() {
-        Map<String, String> map = new ConcurrentMap<>();
+        Map<String, String> map = new ConcurrentHashMap<>();
         map.put("2", "234");
         map.put("3", "234");
         map.put("4", "234");

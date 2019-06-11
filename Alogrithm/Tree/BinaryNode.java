@@ -20,11 +20,3 @@ public class BinaryNode extends Node {
         this.children[1] = node;
     }
 }
-
-
-
-public class Name {
-    public Name () {
-        System.out.println("xx");
-    }
-}

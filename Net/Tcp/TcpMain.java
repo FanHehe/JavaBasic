@@ -3,7 +3,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.ServerSocket;
 
-public class Main {
+public class TcpMain {
 
     private static final int THREAD_POOL_SIZE = 1;
 

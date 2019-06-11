@@ -1,6 +1,8 @@
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 
 import java.net.Socket;
 import java.net.ServerSocket;
@@ -27,12 +29,12 @@ public abstract class SOA {
 
     abstract int check();
 
-    public void connect(int cmlb) {
+    public void connect(int cmlb) throws IOException {
         this.socket.connect(this.getSocketAddress(cmlb));
     }
 
 
-    public byte[] recv(int timeout) {
+    public byte[] recv(int timeout) throws IOException, Exception {
         long over = 0;
         long start = System.currentTimeMillis(); // System.nanoTime();
 
@@ -43,16 +45,13 @@ public abstract class SOA {
 
             over = System.currentTimeMillis();
 
-            if (over - start > this.overtime) {
+            if (over - start > this.timeout) {
                 throw new Exception("recv overtime exception: ");
             }
-
-
-
         }
     }
 
-    public void send(byte[] data) {
+    public void send(byte[] data) throws IOException {
 
         int length = data.length;
         int written = 0;

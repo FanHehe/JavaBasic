@@ -3,26 +3,26 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-class ChopsTick extends ReentrantLock {
+class MyChopsTick extends ReentrantLock {
 
     public int index = 0;
 
-    ChopsTick() {}
+    MyChopsTick() {}
 
-    ChopsTick(int index) { this.index = index; }
+    MyChopsTick(int index) { this.index = index; }
 }
 
-class Human {
+class MyHuman {
     public int index = 0;
 
-    Human () {}
+    MyHuman() {}
 
-    Human (int index) { this.index = index; }
+    MyHuman(int index) { this.index = index; }
 
-    void getChopsTicks(ChopsTick left, ChopsTick right) {
+    void getChopsTicks(MyChopsTick left, MyChopsTick right) {
 
         if (left.index < right.index) {
-            ChopsTick temp = left;
+            MyChopsTick temp = left;
             left = right;
             right = temp;
         }
@@ -53,18 +53,18 @@ public class ChopsTicksLock {
 
         ExecutorService service = Executors.newFixedThreadPool(10);
 
-        Human[] humans = new Human[5];
-        ChopsTick[] chopsticks = new ChopsTick[5];
+        MyHuman[] humans = new MyHuman[5];
+        MyChopsTick[] chopsticks = new MyChopsTick[5];
 
         for(int i = 0; i < humans.length; i++) {
-            humans[i] = new Human(i);
+            humans[i] = new MyHuman(i);
         }
 
         for(int i = 0; i < chopsticks.length; i++) {
-            chopsticks[i] = new ChopsTick(i);
+            chopsticks[i] = new MyChopsTick(i);
         }
 
-        for (Human human: humans) {
+        for (MyHuman human: humans) {
             service.submit(()-> {
                 while(true) {
                     human.getChopsTicks(chopsticks[human.index], chopsticks[(human.index + 1) % 5]);

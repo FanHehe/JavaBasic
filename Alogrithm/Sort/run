@@ -1,2 +1,2 @@
 #!/bin/bash
-javac *.java && java Main
+javac *.java && java SortMain

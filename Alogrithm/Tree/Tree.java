@@ -121,7 +121,7 @@ class Tree<T extends Comparable<T>> {
             if (temp == root) {
                 this.root = temp.left;
             } else if (isLeft) {
-                parent.left == temp.left;
+                parent.left = temp.left;
             } else {
                 parent.right = temp.left;
             }
@@ -136,7 +136,7 @@ class Tree<T extends Comparable<T>> {
                 sub = sub.right;
             }
 
-            if (sub.left) {
+            if (sub.left != null) {
                 if (par == temp) {
                     temp.left = sub.left;
                 } else {
@@ -145,12 +145,14 @@ class Tree<T extends Comparable<T>> {
             }
 
             if (parent.left == temp) {
-                parent.left == sub;
+                parent.left = sub;
             } else {
                 parent.right = sub;
             }
 
             sub = null;
         }
+
+        return true;
     }
 }

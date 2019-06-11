@@ -1,4 +1,5 @@
 import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.BrokenBarrierException;
 
 public class MyCyclicBarrier {
     public static void main(String[] args) {
@@ -36,7 +37,7 @@ public class MyCyclicBarrier {
                 } catch (BrokenBarrierException e) {
                     e.printStackTrace();
                 }
-                
+
                 System.out.println("" + sequence + "after");
             }
         }).start();
