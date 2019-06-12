@@ -12,6 +12,10 @@ public class MyReflect {
     public String publicField = "public";
     private String privateField = "private";
 
+    public static String staticField = "static";
+
+    public final static String finalField = "final";
+
     public void inner(String value) { out.println("inner:" + value); }
 
     public static void outer(String value) { out.println("outer" + value); }
@@ -82,9 +86,30 @@ public class MyReflect {
         }
     }
 
+    public static void modifyField()
+        throws IllegalAccessException, NoSuchFieldException {
+        MyReflect mr = new MyReflect();
+        Field field = mr.getClass().getDeclaredField("publicField");
+
+        if (field != null) {
+            field.setAccessible(true);
+            out.println("Before " + mr.publicField);
+            field.set(mr, "new value");
+            out.println("After " + mr.publicField);
+        }
+    }
+
     public static void main(String[] args) {
         handleField();
         hanldeMethod();
+
+        try {
+            modifyField();
+        }
+        catch(NoSuchFieldException e) {}
+        catch(IllegalAccessException e) {}
+
+
         try {
             invokeMethod();
         }
