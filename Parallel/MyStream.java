@@ -128,6 +128,7 @@ public class MyStream {
         handleMakeStream();
         handleChainStream();
         handleTerminateStream();
+        // 自己实现收集器
         handleCustomizeCollector();
     }
 }
