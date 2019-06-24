@@ -9,11 +9,11 @@ class JUSet {
     }
 
     /**
-     * add / remove
+     * add / remove / contains
      * clear() / equals()
      */
     public static void hanldeSet() {
-        
+
     }
 
     public static void handleHashSet() {
@@ -21,6 +21,6 @@ class JUSet {
     }
 
     public static void handleTreeSet() {
-        
+
     }
 }
