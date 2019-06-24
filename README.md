@@ -2,7 +2,17 @@
 
 ## 说明
 
-Java基础方面的一些练习
+Java基础方面练习
+
+- Alogrithm 算法相关
+- Collection 集合相关
+- Concurrent 并发相关
+- Framework 应用框架相关
+- JVM JVM相关
+- LANGUAGE java基本语法知识相关
+- NET 网络相关
+- Parallel 并行相关
+- Picture 收集到的图片
 
 ## 要求
 
