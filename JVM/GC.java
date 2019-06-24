@@ -1,4 +1,4 @@
-package GC;
+package JVM;
 
 public class GC {
     // JVM的内存管理结构
