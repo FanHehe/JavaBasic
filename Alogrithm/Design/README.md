@@ -21,3 +21,5 @@
 - 单例模式（Singleton）
 - 工厂方法（Factory Method）
 - 适配器（Adapter）
+
+> [https://design-patterns.readthedocs.io/zh_CN/latest/structural_patterns/adapter.html](https://design-patterns.readthedocs.io/zh_CN/latest/structural_patterns/adapter.html)
