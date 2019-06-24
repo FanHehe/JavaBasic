@@ -9,6 +9,14 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class MyThreadPool {
 
+    // 线程池的状态
+    // Running、ShutDown、Stop、Tidying、Terminated。
+    // 线程池的初始化状态是RUNNING，能够接收新任务，以及对已添加的任务进行处理。
+    // 线程池处在SHUTDOWN状态时，不接收新任务，但能处理已添加的任务。
+    // 线程池处在STOP状态时，不接收新任务，不处理已添加的任务，并且会中断正在处理的任务。
+    // 当所有的任务已终止，ctl记录的”任务数量”为0，线程池会变为TIDYING状态。当线程池变为TIDYING状态时，会执行钩子函数terminated()。
+    // 线程池彻底终止，就变成TERMINATED状态。线程池处在TIDYING状态时，执行完terminated()之后，就会由 TIDYING -> TERMINATED
+
     public static final int value = 5;
 
     public static void main(String[] args) {
@@ -61,7 +69,7 @@ public class MyThreadPool {
         ExecutorService singleThreadPool = makeThreadPool(1, 1, keepAliveTime, unit, queue);
         ExecutorService fixedThreadPool = makeThreadPool(core, core, keepAliveTime, unit, queue);
         ExecutorService cachedThreadPool = makeThreadPool(0, Integer.MAX_VALUE, 60L, TimeUnit.SECONDS,  new SynchronousQueue<Runnable>());
-        
+
     }
 
     /**
