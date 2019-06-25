@@ -1,6 +1,6 @@
 package Alogrithm.Graph;
 
-import java.uitl.Queue;
+import java.util.Queue;
 import java.util.HashSet;
 import java.util.LinkedList;
 
@@ -8,7 +8,7 @@ import static java.lang.System.out;
 
 public class GraphTraversal {
 
-    public static final INF = -1;
+    public static final int INF = -1;
 
     // https://www.cnblogs.com/toSeeMyDream/p/5775382.html
 
@@ -20,18 +20,18 @@ public class GraphTraversal {
 
         int size = table.length;
 
-        boolean[] isVisited = new boolvean[size];
+        boolean[] isVisited = new boolean[size];
 
         innerDFS(table, isVisited, 0);
     }
 
-    public static void innerDFS(GraphNode[] table, boolean[] isVisited, int i) {
+    public static void innerDFS(GraphNode[] table, boolean[] isVisited, int v) {
 
-        isVisited[i] = true;
+        isVisited[v] = true;
 
-        print(table[i].name);
+        print(table[v].name);
 
-        GraphNode list = table[i];
+        GraphNode list = table[v];
 
         while(list.next != null) {
 
@@ -44,7 +44,7 @@ public class GraphTraversal {
                 }
             }
 
-            if (!isVisited[i]) {
+            if (!isVisited[idx]) {
                 innerDFS(table, isVisited, idx);
             }
 
@@ -85,23 +85,23 @@ public class GraphTraversal {
 
     public static void Topology(int[][] graph) {
         // 基于dfs
-        int[] visited = new int[graph.length];
+        boolean[] visited = new boolean[graph.length];
 
         Queue<Integer> queue = new LinkedList<>();
 
-        return TopologyR(graph, visited, 0, queue);
+        TopologyR(graph, visited, 0, queue);
     }
 
-    public static void TopologyR(int[][] graph, int[] visited int v, Queue queue) {
+    public static void TopologyR(int[][] graph, boolean[] visited, int v, Queue<Integer> queue) {
 
         visited[v] = true;
 
         queue.offer(v);
 
-        for(int i = 0, size = graph.length; i++) {
+        for(int i = 0, size = graph.length; i < size; i++) {
             if (!visited[i]) {
                 if (graph[v][i] != INF) {
-                    TopologyR(graph, visited, i);
+                    TopologyR(graph, visited, i, queue);
                 }
             }
         }
@@ -130,7 +130,7 @@ public class GraphTraversal {
             int idx = INF;
 
             for (int i = 0; i < size; i++) {
-                if (!isVisited[i] && inDegree[i] == 0) {
+                if (!visited[i] && inDegree[i] == 0) {
                     idx = i;
                     break;
                 }

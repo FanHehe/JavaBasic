@@ -2,7 +2,7 @@ package Alogrithm.Graph;
 
 public class MyDijkstra {
 
-    public static final INF = -1;
+    public static final int INF = -1;
 
     public static int[] handleDijkstra(int[][] graph, int from) {
         // https://www.cnblogs.com/biyeymyhjob/archive/2012/07/31/2615833.html
@@ -13,7 +13,7 @@ public class MyDijkstra {
 
         int[] dist = new int[size];
         int[] prev = new int[size];
-        boolean visited = new boolean[size];
+        boolean[] visited = new boolean[size];
 
         for (int i = 0; i < size; i++) {
             visited[i] = false; // 均未访问过

@@ -20,18 +20,18 @@ public class MyMinimumSpanningTree {
         char[] result = new char[size];
 
         for (char i = 0; i < size; i++) {
-            result[i] = 'A' + i;
+            result[i] = (char)('A' + i);
         }
 
         return result;
     }
 
     private static int[][] makeMatrix(int size) {
-        int[][] matrix = new int[][];
+        int[][] matrix = new int[size][size];
 
         for (int i = 0; i < size; i++) {
             for(int j = 0; j < size; j++) {
-                matrix[i][j] = Math.round(Math.random());
+                matrix[i][j] = (int)(Math.round(Math.random()));
             }
         }
 
@@ -47,10 +47,10 @@ public class MyMinimumSpanningTree {
         //  - 在集合E1中选取权值最小的边<u, v>，其中u为集合V2中的元素，而v不在V2集合当中，并且v∈V1
         //  - 将v加入集合V2中，将<u, v>边加入集合E2中；
 
-        char vexs = makeVexs();
+        char[] vexs = makeVexs();
         int[][] matrix = makeMatrix();
 
-        char vexNew = new char[vexs.length];
+        char[] vexNew = new char[vexs.length];
         int[][] tree = new int[vexs.length][vexs.length];
 
 
