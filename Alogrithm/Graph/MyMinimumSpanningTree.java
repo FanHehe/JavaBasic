@@ -25,6 +25,7 @@ public class MyMinimumSpanningTree {
 
         return result;
     }
+
     private static int[][] makeMatrix(int size) {
         int[][] matrix = new int[][];
 

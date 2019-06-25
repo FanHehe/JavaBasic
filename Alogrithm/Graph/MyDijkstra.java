@@ -4,7 +4,7 @@ public class MyDijkstra {
 
     public static final INF = -1;
 
-    public static void handleDijkstra(int[][] graph, int from) {
+    public static int[] handleDijkstra(int[][] graph, int from) {
         // https://www.cnblogs.com/biyeymyhjob/archive/2012/07/31/2615833.html
         // 单源最短路径算法，图中不存在负权边。
         // 问题描述：在无向图 G=(V,E) 中，假设每条边 E[i] 的长度为 w[i]，找到由顶点 V0 到其余各点的最短路径。（单源最短路径）
@@ -58,5 +58,7 @@ public class MyDijkstra {
                 }
             }
         }
+
+        return dist;
     }
 }
