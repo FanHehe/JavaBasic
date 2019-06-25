@@ -8,6 +8,42 @@ public class MyIO {
     public static void handleBIO() {
         // java.io.*
         // 基本的面向字节流和字符流的阻塞IO
+        // - 字符流
+        //  - Reader / Writer
+        //      - FileReader / FileWriter
+        // - 字节流
+        //  - InputStream / OutputStream
+        //      - FileInputStream / FileOutputStream
+        //      - FilterInputStream / FilterOutputStream
+        //          - BufferedInputStream / BufferedOutputStream
+        //          - DataInputStream / DataOutputStream
+        //      - ObjectInputStream / ObjectOutputStream
+        //      - PipedInputStream / PipedOutputStream
+
+        try {
+
+            int c;
+
+            FileInputStream fis = new FileInputStream("./README.md");
+            FileOutputStream fos = new FileOutputStream("./README.md.2");
+            BufferedInputStream bis = new BufferedInputStream(fis);
+            BufferedOutputStream bos = new BufferedOutputStream(fos);
+
+            while((c = bis.read()) != -1) {
+                bos.write(c);
+            }
+
+            bis.close();
+            bos.close();
+            fis.close();
+            fos.close();
+
+            File file = new File("./README.md.2");
+            file.delete();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void handleNIO() {
