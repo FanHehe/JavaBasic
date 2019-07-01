@@ -27,3 +27,5 @@ Java基础方面练习
 > [http://www.jasongj.com/java/concurrenthashmap/](http://www.jasongj.com/java/concurrenthashmap/)
 
 > [http://www.jasongj.com/design_pattern/summary/](http://www.jasongj.com/design_pattern/summary/)
+
+> [https://juejin.im/post/5cb34beee51d456e303db862](https://juejin.im/post/5cb34beee51d456e303db862)
