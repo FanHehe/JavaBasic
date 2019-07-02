@@ -1,7 +1,11 @@
+import java.util.concurrent.Delayed;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.DelayQueue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.PriorityBlockingQueue;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.SynchronousQueue;
 
 public class MyBlocking {
@@ -13,11 +17,28 @@ public class MyBlocking {
             handleArrayBlockingQueue();
             handleLinkedBlockingQueue();
         } catch (Exception e) {}
-        
+
     }
 
     //  延迟队列
     static void handleDelayQueue() throws InterruptedException{
+        long now = System.currentTimeMillis();
+        Task task = new Task(now + 10000, "task");
+        DelayQueue<Task> queue = new DelayQueue<>();
+        ExecutorService pool = Executors.newCachedThreadPool();
+
+        queue.offer(task);
+
+        while(!queue.isEmpty()) {
+            try {
+                Task item = queue.take();
+                pool.execute(item);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        pool.shutdown();
     }
 
     // 同步队列- 无内容容器：put会阻塞
@@ -33,7 +54,7 @@ public class MyBlocking {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                
+
             }
         }).start();
 
@@ -86,5 +107,40 @@ public class MyBlocking {
         queue.take();
         queue.take();
     }
+}
 
+class Task implements Runnable, Delayed {
+
+    private long delay = 0;
+    private String value =  "";
+
+    public Task() {
+        this(0, "default");
+    }
+
+    public Task(long delay, String value) {
+        this.delay = delay;
+        this.value = value;
+    }
+
+    public void run() {
+        System.out.println(value);
+    }
+
+    public long getDelay(TimeUnit unit) {
+        return unit.convert(delay - System.currentTimeMillis(), TimeUnit.MILLISECONDS);
+    }
+
+    public int compareTo(Delayed t) {
+
+        Task target = (Task)t;
+
+        if (delay > target.delay) {
+            return 1;
+        } else if (delay < target.delay) {
+            return -1;
+        } else {
+            return 0;
+        }
+    }
 }

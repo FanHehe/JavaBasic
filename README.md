@@ -9,7 +9,7 @@ Java基础方面练习
 - Concurrent 并发相关
 - Framework 应用框架相关
 - JVM JVM相关
-- LANGUAGE java基本语法知识相关
+- Language java基本语法知识相关
 - NET 网络相关
 - Parallel 并行相关
 - Picture 收集到的图片

@@ -35,10 +35,10 @@ class DoubleCheckSingleton {
             synchronized(instance) {
                 if (instance == null) {
                     // volatile
-                    // 1.在堆内存开辟内存空间。
-                    // 2.在堆内存中实例化SingleTon里面的各个参数。
-                    // 3.把对象指向堆内存空间。
-                    instance = new DoubleCheckSingleton();
+                    // 1. 分配内存空间。
+                    // 2. 初始化对象。
+                    // 3. 将内存空间的地址赋值给对应的引用。
+                    instance = new DoubleCheckSingleton(); // 不加volatile则可能造成对象的不完全发布
                 }
             }
         }

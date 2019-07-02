@@ -43,7 +43,7 @@ class Human {
         System.out.println("human" + this.index + "吃完饭啦");
     }
 
-    void getChopsticksSate(ChopsTick left, ChopsTick right) {
+    void getChopsticksSafe(ChopsTick left, ChopsTick right) {
 
         if (left.id > right.id) {
             ChopsTick temp = left;
@@ -87,7 +87,7 @@ public class ChopsTicks {
         for (Human human: humans) {
             service.submit(()-> {
                 while(true) {
-                    human.getChopsticksSate(chopsticks[human.index], chopsticks[(human.index + 1) % 5]);
+                    human.getChopsticksSafe(chopsticks[human.index], chopsticks[(human.index + 1) % 5]);
                 }
             });
         }
