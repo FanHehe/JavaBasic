@@ -2,10 +2,15 @@ package IO;
 
 import java.io.*;
 import java.nio.*;
+import java.nio.file.*;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
 import java.nio.channels.FileChannel;
+import java.nio.channels.AsynchronousFileChannel;
+
+import java.util.concurrent.Future;
 
 public class MyIO {
-
 
     public static void hanldeSerializable() {
         // Serializable 和 Externalizable
@@ -136,6 +141,32 @@ public class MyIO {
         // 并提供了异步文件通道和异步套接字通道的实现。
         // 异步的套接字通道时真正的异步非阻塞I/O，对应于UNIX网络编程中的事件驱动I/O（AIO）
         // 他不需要过多的Selector对注册的通道进行轮询即可实现异步读写，从而简化了NIO的编程模型
+        //  - AsynchronousFileChannel
+        //  - AsynchronousSocketChannel
+        //  - AsynchronousServerSocketChannel
+        try {
+
+            String loc = "README.md";
+            Path path = Paths.get(loc);
+
+            ByteBuffer buffer = ByteBuffer.allocate(1024);
+            CharBuffer charBuffer = CharBuffer.allocate(1024);
+            CharsetDecoder decoder = Charset.defaultCharset().newDecoder();
+            AsynchronousFileChannel channel = AsynchronousFileChannel.open(path);
+
+            Future future = channel.read(buffer ,0);
+
+            buffer.flip();
+            decoder.decode(buffer, charBuffer, false);
+            charBuffer.flip();
+
+            String data = new String(charBuffer.array(), 0, charBuffer.limit());
+
+            System.out.println("read number:" + future.get());
+            System.out.println(data);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
