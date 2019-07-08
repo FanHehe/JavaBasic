@@ -157,18 +157,52 @@ public class StringLongestCycle {
             set.add(String.valueOf(array));
         } else {
 
-        for (int i = k; i < array.length; i++) {
+            for (int i = k; i < array.length; i++) {
 
-            if (i != k && array[i] == array[k]) {
-                continue;
+                if (i != k && array[i] == array[k]) {
+                    continue;
+                }
+
+                Common.swap(array, i, k);
+                hanldeArrangement(array, k + 1, set);
+                Common.swap(array, i, k);
             }
-
-            Common.swap(array, i, k);
-            hanldeArrangement(array, k + 1, set);
-            Common.swap(array, i, k);
-        }
         }
     }
+
+    HashSet<String> hanldeArrangement2(String value) {
+
+        HashSet<String> set = new HashSet<>();
+        char[] array = value.toCharArray();
+
+        if (value == null) {
+            return null;
+        }
+
+        if (value == "") {
+            return null;
+        }
+
+        for (int i = 0; i < array.length; i++) {
+
+            char item = array[i];
+
+            HashSet<String> temp = new HashSet<>();
+
+            for (String str: set) {
+
+                for (int j = 0; j <= str.length(); j++) {
+                    StringBuilder sb = new StringBuilder(str);
+
+                    temp.add(sb.insert(j, item).toString());
+                }
+            }
+            set.add(item + "");
+            set.addAll(temp);
+        }
+
+    return set;
+}
 
     public static char firstOnceCharacter(String str) {
 
