@@ -2,6 +2,13 @@ package Distributed;
 
 public class MyKafka {
 
+    public void handleBase() {
+        // 1. 为什么用MQ
+        // 2. MQ的优缺点
+        // 3. 消息的可靠性
+        // 4. MQ的高可用
+    }
+
     public void hanldeDiff() {
         // https://www.cnblogs.com/haolujun/p/9632835.html
     }
@@ -9,6 +16,7 @@ public class MyKafka {
     public void handleKafka() {
         // 高吞吐量的分布式发布订阅消息系统
         // https://juejin.im/post/5cf7847cf265da1b6c5f64fb
+        // http://www.jasongj.com/2015/03/10/KafkaColumn1
         // Core
         //  - Producer：消息的产生者
         //      - Producer在写入数据的时候永远的找leader，不会直接将数据写入follower
@@ -45,6 +53,7 @@ public class MyKafka {
         //      - Kafka采用的是点对点的模式，消费者主动的去kafka集群拉取消息，与producer相同的是，消费者在拉取消息的时候也是找leader去拉取
         //  - Consumer Group：将多个消费者组成一个消费者组，在kafka的设计中同一个分区的数据只能被消费者组中的某一个消费者消费
         //      - 如果是消费者组的消费者多于partition的数量，也不会出现多个消费者消费同一个partition的数据。
+        //      - 一个Topic中的每个partitions，只会被一个”订阅者”中的一个consumer消费，不过一个consumer可以同时消费多个partitions中的消息。
         //      - 建议消费者组的consumer的数量与partition的数量一致
         //  - Zookeeper：kafka集群依赖zo服务器中应该充分利用多线程来处理执行逻辑okeeper来保存集群的的元信息，来保证系统的可用性。
         //
@@ -58,6 +67,7 @@ public class MyKafka {
         // Q3: Kafka如何实现分布式的数据存储与数据读取?
         //
         // Shell
+        //  - kafka-server-start -daemon /usr/local/etc/kafka/server.properties
         //  - kafka-topics --zookeeper 127.0.0.1:2181 --list
         //  - kafka-console-producer --topic  fanhehe --broker-list 127.0.0.1:9092
         //  - kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic fanhehe

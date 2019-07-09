@@ -12,7 +12,6 @@ import static java.lang.System.out;
     public String name() default "hello";
 }
 
-
 public class MyAnnotation {
     // meta annotation
     // @Retention: 定义注解的保留策略
