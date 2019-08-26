@@ -1,3 +1,1 @@
-public class MyAQS {
-
-}
+public class MyAQS {}

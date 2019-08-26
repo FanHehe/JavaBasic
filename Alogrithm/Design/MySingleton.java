@@ -64,7 +64,5 @@ public class MySingleton {
         SyncSingleton sycn = SyncSingleton.instance();
         DoubleCheckSingleton check = DoubleCheckSingleton.instance();
         StaticInnerClassSingleon inner = StaticInnerClassSingleon.instance();
-
-
     }
 }
