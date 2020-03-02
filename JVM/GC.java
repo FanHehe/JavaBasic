@@ -34,15 +34,18 @@ public class GC {
     //
     //  垃圾收集算法：
     //  标记清除 + 复制算法 = 标记整理
+
     //  分代回收：
-    //  - 新生代：
+    //  - 新生代(复制算法)
     //      - Eden Space
     //      - Survivor Space = from Space + to Space
     //      - ratio = Eden : Survivor = 8 : 1
-    //  - 老年代
+    //  - 老年代(标记整理)
     //      - 大对象直接进入老年代
     //      - 熬过一次GC，年龄加一，超过默认15岁进入老年代
     //  - 方法区(永久代 / 元空间)
+    //      - 元空间：
+    //          -
     //
     //  - 新对象优先从Eden区分配空间
     //      - 如果Eden空间够的话就结束
@@ -57,12 +60,10 @@ public class GC {
     //                      - 失败：FullGC, MinorGC
     //                  - 否：进行FullGC, MinorGC 分配空间
     //
-    //
     //  https://blog.csdn.net/pf1234321/article/details/82288921
     //
     //  JAVA 8默认
-    //  -XX:+UseCompressedClassPointers -XX:+UseCompressedOops -XX:+UseParallelGC(Parallel Scavenge(新生代使用)(复制算法) + Serial Old(老年代使用)(标记整理))
-    //
+    //  -server -Xmx2048m -Xms2048m -Xmn758m -Xss256k -XX:SurvivorRatio=6 -XX:ParallelGCThreads=8 -XX:+PrintGC -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintHeapAtGC -Xloggc:/usr/share/tomcat/logs/gc.log
     //  JAVA10默认
     //  -XX:+UseCompressedClassPointers -XX:+UseCompressedOops -XX:+UseG1GC
     //
