@@ -8,6 +8,11 @@ public class GC {
     // 3. 本地方法栈
     // 4. 堆
     // 5. 方法区
+    //     1. JVM加载的类信息
+    //     2. 常量
+    //     3. 静态变量
+    //     4. 即时编译器编译后的代码等数据
+    //
     // https://mritd.me/2016/03/22/Java-%E5%86%85%E5%AD%98%E4%B9%8B%E6%96%B9%E6%B3%95%E5%8C%BA%E5%92%8C%E8%BF%90%E8%A1%8C%E6%97%B6%E5%B8%B8%E9%87%8F%E6%B1%A0/
 
     // 堆的回收：
@@ -16,10 +21,9 @@ public class GC {
     //
     //  可达性分析：
     //  + GC Roots =
-    //  + 虚拟机栈的本地变量表
-    //  + 方法区中类的静态属性引用的对象
-    //  + 方法区中常量应用的对象
-    //  + 本地方法栈中JNI引用的对象
+    //  + 虚拟机栈 + 本地方法栈中的变量
+    //  + 方法区中类的静态属性和常量引用的对象
+
     //  引用类型：
     //  - 强引用：普通复制引用
     //  - 软引用：java.lang.ref.SoftReference (在内存溢出前，进行回收，如果还溢出，则OOM)
@@ -37,6 +41,29 @@ public class GC {
     //      - ratio = Eden : Survivor = 8 : 1
     //  - 老年代
     //      - 大对象直接进入老年代
-    //      - 熬过一次GC，年龄加一，超过一定年龄进入老年代
-    //  - 永久代
+    //      - 熬过一次GC，年龄加一，超过默认15岁进入老年代
+    //  - 方法区(永久代 / 元空间)
+    //
+    //  - 新对象优先从Eden区分配空间
+    //      - 如果Eden空间够的话就结束
+    //      - 如果Eden空间不够的话
+    //          - 老年代的空间是否 > 新生代的大小
+    //              - 是：则进行一次MinorGC，进行分配空间
+    //                  - 如果成功：结束
+    //                  - 如果分配失败，进行分配担保
+    //              - 否：是否允许分配担保失败
+    //                  - 是：进行MinorGC
+    //                      - 成功：完成
+    //                      - 失败：FullGC, MinorGC
+    //                  - 否：进行FullGC, MinorGC 分配空间
+    //
+    //
+    //  https://blog.csdn.net/pf1234321/article/details/82288921
+    //
+    //  JAVA 8默认
+    //  -XX:+UseCompressedClassPointers -XX:+UseCompressedOops -XX:+UseParallelGC(Parallel Scavenge(新生代使用)(复制算法) + Serial Old(老年代使用)(标记整理))
+    //
+    //  JAVA10默认
+    //  -XX:+UseCompressedClassPointers -XX:+UseCompressedOops -XX:+UseG1GC
+    //
 }

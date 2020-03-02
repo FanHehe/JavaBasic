@@ -13,7 +13,7 @@ public class BubbleSort<E extends Comparable<E>> implements Sort<E> {
                 if (list.get(j) == null || list.get(j - 1) == null) {
                     continue;
                 }
-                // 冒泡排序
+
                 if (list.get(j - 1).compareTo(list.get(j)) > 0) {
                     E temp = list.get(j - 1);
                     list.set(j - 1, list.get(j));

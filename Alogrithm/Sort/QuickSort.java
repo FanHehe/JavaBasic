@@ -22,7 +22,7 @@ public class QuickSort<E extends Comparable<E>> implements Sort<E> {
         int i = from;
         int j = end;
 
-        E povit = (E) list.get(from);
+        E povit = (E) list.get(i);
 
         while(i < j) {
             while(i <= j && list.get(j).compareTo(povit) > 0)
