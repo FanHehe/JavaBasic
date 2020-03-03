@@ -288,7 +288,6 @@ public class MySpring {
         // HttpServletBean --> HttpServlet --> GenericServlet
         //
         // Tomcat 调用 GenericServlet.init(ServletConfig sc)，左方内部调用this.init()，进行真正的初始化
-        //
     }
 
     public static void typesOfWebApplicationContext() {
@@ -416,7 +415,6 @@ public class MySpring {
         //
         // 14. 如果Bean中通过destory-method属性定义了销毁方法，则将执行这个方法
 
-
         //  可以将bean的生命周期分成四类
         //  1.  Bean自身的方法：
         //      - 如调用Bean构造函数实例化Bean
@@ -474,12 +472,9 @@ public class MySpring {
         // # Spring MVC 流程
 
         // ## 简单版
-
         // > https://www.jianshu.com/p/dc64d02e49ac
 
-
         // ## 详细版
-
         // > Spring MVC 和Tomcat均实现了Servlet协议，并满足Servlet的生命周期init，service和destory。
 
         // Web应用部署流程来规定：
@@ -518,11 +513,8 @@ public class MySpring {
         // ### DispatcherServlet
 
         // 每当请求来临时，tomcat会根据servlet-mapping将请求交给符合url-pattern的servlet进行处理，此时tomcat会负责调用Servlet.service方法。
-
         // 因为仅配置了一个url-pattern为/的servlet-mapping，因此所有的请求都会由DispatcherServlet处理，而配置了load-on-startup属性，则决定了服务器启动时，会自动执行Servlet的init方法。
-
         // 因此DispatcherServlet类，作为Spring的入口类，既是App启动的入口(DispatcherServlet.init)，同样也是在接受到请求时，处理请求的入口(DispatcherServlet.service)。
-
         // 所以spring的启动过程，也就是new DispatcherServlet() 和 DispatcherServlet.init()的过程。
     }
 

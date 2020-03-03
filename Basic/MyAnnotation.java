@@ -43,8 +43,6 @@ public class MyAnnotation {
     //                          GenericDeclaration,
     //                          Type,
     //                          AnnotatedElement {...
-    //
-    //
 
     @FieldOrMethod
     private String value = "value";

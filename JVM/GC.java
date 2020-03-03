@@ -12,7 +12,6 @@ public class GC {
     //     2. 常量
     //     3. 静态变量
     //     4. 即时编译器编译后的代码等数据
-    //
     // https://mritd.me/2016/03/22/Java-%E5%86%85%E5%AD%98%E4%B9%8B%E6%96%B9%E6%B3%95%E5%8C%BA%E5%92%8C%E8%BF%90%E8%A1%8C%E6%97%B6%E5%B8%B8%E9%87%8F%E6%B1%A0/
 
     // 堆的回收：
@@ -45,7 +44,18 @@ public class GC {
     //      - 熬过一次GC，年龄加一，超过默认15岁进入老年代
     //  - 方法区(永久代 / 元空间)
     //      - 元空间：
-    //          -
+    //          - used: 加载的类的空间量
+    //          - capacity: capacity是指那些被实际分配的Chunk大小之和
+    //          - committed: committed是指那些被commit的Chunk大小之和
+    //          - reserved: 元数据的空间保留（但不一定提交）的量。
+    //          Metaspace由一个或多个虚拟空间组成，虚拟空间的分配单元是Chunk，其中Chunk使用列表进行维护。
+    //          当使用一个classLoader加载一个类时，过程如下：
+    //          1、当前classLoader是否有对应的Chunk且有足够的空间。
+    //          2、查找空闲列表中的有没有空闲的Chunk。
+    //          3、如果没有，就从当前虚拟空间中分配一个新的Chunk，这个时候会把对应的内存进行Commit，这个动作就是提交。
+    //          4、如果当前虚拟空间不足，则预留(reserves)一个新的虚拟空间。
+    //          因为有GC的存在，有些Chunk的数据可能会被回收，那么这些Chunk属于committe的一部分，但不属于capacity
+    //          另外，这些被分配的Chunk，基本很难被100%用完，存在碎片内存的情况，这些Chunk实际被使用的内存之和即used的大小；
     //
     //  - 新对象优先从Eden区分配空间
     //      - 如果Eden空间够的话就结束
@@ -60,10 +70,13 @@ public class GC {
     //                      - 失败：FullGC, MinorGC
     //                  - 否：进行FullGC, MinorGC 分配空间
     //
+    //  java -XX:+PrintCommandLineFlags -version
+    //  java -XX:+PrintFlagsInitial 可以查看所以的jvm默认参数
     //  https://blog.csdn.net/pf1234321/article/details/82288921
     //
     //  JAVA 8默认
     //  -server -Xmx2048m -Xms2048m -Xmn758m -Xss256k -XX:SurvivorRatio=6 -XX:ParallelGCThreads=8 -XX:+PrintGC -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintHeapAtGC -Xloggc:/usr/share/tomcat/logs/gc.log
+    //
     //  JAVA10默认
     //  -XX:+UseCompressedClassPointers -XX:+UseCompressedOops -XX:+UseG1GC
     //
