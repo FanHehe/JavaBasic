@@ -1,4 +1,4 @@
-class MyRabbitMQ {
+class RabbitMQ {
     void handleBase() {
         // 1.解耦，系统A在代码中直接调用系统B和系统C的代码，如果将来D系统接入，系统A还需要修改代码，过于麻烦！
 

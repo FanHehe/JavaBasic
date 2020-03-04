@@ -35,16 +35,7 @@ if (tp instanceof ParameterizedType) {
 }
 
 return gson.fromJson(content, type);
-
 ```
-
-2. 公司规模小，接受这个项目人都离职了，而且没有交接文档
-
-3. 历史遗留问题
-    - GBK 问题
-    - 代码耦合严重
-
-4. 重复代码太多: try-catch-finllay 每个都相同
 
 #### 运行情况
 
@@ -91,50 +82,9 @@ return gson.fromJson(content, type);
 - 评级晋升
 
 
-## 关键字段
-
-### Http Client
-
-#### Http Client 封装
-
-### Cookie Session Token
-
-#### Cookie
-
-- name
-- value
-- domain
-- path
-- expire
-- httponly
-
-##### cors
-
-整个CORS通信过程，都是浏览器自动完成，不需要用户参与。
-
-对于开发者来说，CORS通信与同源的AJAX通信没有差别，代码完全一样。浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。
-
-因此，实现CORS通信的关键是服务器。只要服务器实现了CORS接口，就可以跨源通信。
-
-浏览器将CORS请求分成两类：简单请求（simple request）和非简单请求（not-so-simple request）。
-
-只要同时满足以下两大条件，就属于简单请求。
-
-HEAD、GET、POST
-
-并且Http首部
-
-Accept
-Accept-Language
-Content-Language
-Last-Event-ID
-Content-Type：只限于三个值application/x-www-form-urlencoded、multipart/form-data、text/plain
-
-浏览器对这两种请求的处理，是不一样的。
 
 
-> http://www.ruanyifeng.com/blog/2016/04/cors.html
 
-
-[JWT](http://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html)
+> [https://juejin.im/post/5aa4a2e35188255589496eb8](https://juejin.im/post/5aa4a2e35188255589496eb8)
+> [https://juejin.im/post/5cb34beee51d456e303db862](https://juejin.im/post/5cb34beee51d456e303db862)
 
