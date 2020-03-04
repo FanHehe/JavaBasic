@@ -1,4 +1,4 @@
-package JVM;
+package Basic.JVM;
 
 // https://www.cnblogs.com/chenfangzhi/p/11869396.html
 
