@@ -1,6 +1,6 @@
 package Distributed;
 
-public class Index {
+public class Core {
 
     // - zookeeper (分布式协调服务)
     // - hadoop hdfs（分布式存储系统）
@@ -19,5 +19,15 @@ public class Index {
         // Basically Available(基本可用): 分布式系统在出现故障时，允许损失部分可用性，即保证核心可用
         // SofState(软状态): 允许系统存在中间状态，而该中间状态不会影响系统整体可用性。这里的中间状态就是CAP理论中的数据不一致。
         // 最终一致性(Eventual Consistency): 系统中的所有数据副本经过一定时间后，最终能够达到一致的状态。
+        //
+        // Spring Cloud Hoxton:
+        // https://segmentfault.com/a/1190000004474543
     }
+
+    public static void handle2PC() {}
+    public static void handle3PC() {}
+    public static void handlePaxos() {}
+    public static void handleRaft() {}
+    public static void handleZab() {}
+    public static void handleIsr() {}
 }

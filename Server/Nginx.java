@@ -5,8 +5,7 @@ public class Nginx {
         // https://www.cnblogs.com/gucb/p/11237802.html
 
         // 工作原理:
-        //
-        //异步，非阻塞，使用了epoll 和大量的底层代码优化。
+        // 异步，非阻塞，使用了epoll 和大量的底层代码优化。
 
         // 如果一个server采用一个进程负责一个request的方式，那么进程数就是并发数。正常情况下，会有很多进程一直在等待中。
 
@@ -26,7 +25,6 @@ public class Nginx {
         // 惊群：同一个时刻只能有唯一一个worker子进程监听web端口，此时新连接事件只能唤醒唯一正在监听端口的worker子进程。采用锁，互斥量实现！！
         // 就是同一时刻只允许一个nginx worker在自己的epoll中处理监听句柄。它的负载均衡也很简单，当达到最大connection的7/8时，本worker不会去试图拿accept锁，也不会去处理新连接，这样其他nginx worker进程就更有机会去处理监听句柄，建立新连接了。而且，由于timeout的设定，使得没有拿到锁的worker进程，去拿锁的频繁更高。
         //
-        //
         // 禁止access_log: access_log off;
     }
 
@@ -38,23 +36,23 @@ public class Nginx {
         // 2、权重
         //
         // upstream backserver {
-        // server 192.168.0.14 weight=3;
-        // server 192.168.0.15 weight=7;
+        //  server 192.168.0.14 weight=3;
+        //  server 192.168.0.15 weight=7;
         // }
         //
         // 3、ip_hash
         //
         // upstream backserver {
         // ip_hash;
-        // server 192.168.0.14;
-        // server 192.168.0.15;
+        //  server 192.168.0.14;
+        //  server 192.168.0.15;
         // }
         //
         // 4、least_conn
         // // upstream backserver {
         // least_conn;
-        // server 192.168.0.14;
-        // server 192.168.0.15;
+        //  server 192.168.0.14;
+        //  server 192.168.0.15;
         // }
     }
 
@@ -95,5 +93,10 @@ public class Nginx {
         // break –  停止处理后续rewrite指令集，并不在重新查找
         // redirect – 返回临时重定向的HTTP状态302
         // permanent – 返回永久重定向的HTTP状态301
+    }
+
+    public static void hanldeLimitStream() {
+        // ngx_http_limit_conn_module
+        //
     }
 }

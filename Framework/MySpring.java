@@ -18,6 +18,7 @@ public class MySpring {
     }
 
     public static void handleAop() {
+        // https://www.cnblogs.com/liaojie970/p/7883687.html
         // 切面编程
         //  - 通知(Advice)
         //      - Before()
@@ -45,6 +46,7 @@ public class MySpring {
         //          - execution(* com.fanhehe.cmd.service.HomeService.handleIndex(..))
         //          - execution(* com.fanhehe.cmd.service.HomeService.handleIndex(..)) and within(com.fanhehe.cmd.*)
         //          - execution(* com.fanhehe.cmd.service.HomeService.handleIndex(int)) and args(uid)
+        //          - execution(modifiers-pattern? ret-type-pattern declaring-type-pattern? name-pattern(param-pattern)throws-pattern?)
         //  - 切面(Aspect)
         //      - 通知 + 切点 = 切面
         //  - 引入(Introduction)
@@ -150,37 +152,6 @@ public class MySpring {
     }
 
     public static void hanldeTransaction() {
-        // - ACID
-        //  - A: 原子性(Atomicity)
-        //  - C: 一致性(Consistency) : 一致状态的含义是数据库中的数据应满足完整性约束
-        //  - I: 隔离性(Isolation)
-        //      - 未提交读
-        //          - 脏读: 一个事务在执行的过程中读取到了其他事务还没有提交的数据
-        //      - 提交读
-        //          - 发生了在一个事务内两次读到的数据是不一样的情况, 重点在于修改
-        //      - 可重复读
-        //          - 幻读: 幻读的重点在于新增或者删除
-        //              - 如果使用锁机制来实现这两种隔离级别。在可重复读中，该sql第一次读取到数据后，就将这些数据加锁
-        //                  - 其它事务无法修改这些数据，就可以实现可重复读了。但这种方法却无法锁住insert的数据
-        //                  - 所以当事务A先前读取了数据，或者修改了全部数据，事务B还是可以insert数据提交，
-        //                  - 这时事务A就会 发现莫名其妙多了一条之前没有的数据，这就是幻读，不能通过行锁来避免。
-        //
-        //              - innodb在RR的隔离级别下
-        //                  - Innodb使用MVVC和next-keylocks解决幻读
-        //                      - MVVC解决的是[普通读（快照读）]的幻读(乐观锁)
-        //                          - MVCC的实现，通过保存数据在某个时间点的快照来实现的。
-        //                          - 每行数据都存在一个版本，每次数据更新时都更新该版本。
-        //                          - 修改时Copy出当前版本随意修改，各个事务之间无干扰。
-        //                          - 保存时比较版本号，如果成功（commit），则覆盖原记录；失败则放弃copy（rollback）
-        //                      - next-key locks解决的是[当前读情况下]的幻读
-        //                      - https://blog.csdn.net/qq_33330687/article/details/89004462
-        //              - 如果使用锁机制来实现这两种隔离级别，在可重复读中，该sql第一次读取到数据后，就将这些数据加锁
-        //                  - 其它事务无法修改这些数据，就可以实现可重复读了。但这种方法却无法锁住insert的数据
-        //                  - 所以当事务A先前读取了数据，或者修改了全部数据，事务B还是可以insert数据提交，
-        //                  - 这时事务A就会 发现莫名其妙多了一条之前没有的数据，这就是幻读，不能通过行锁来避免。
-        //
-        //      - 串行化
-        //  - D: 持久性(Durability)
         // - Spring事务管理接口
         // - Spring并不直接管理事务，而是提供了多种事务管理器
         //  - PlatformTransactionManager: Spring事务管理器的接口

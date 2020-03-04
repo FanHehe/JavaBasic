@@ -1,23 +1,7 @@
 public class Tomcat {
 
-    public static void handleDescription() {
-        // 1. 实现了servlet协议的Web服务器
-        // 2.
-    }
-
-    public static void handleFunctions() {
-
-    }
-
     public static void handleClassLoader() {
         // https://www.cnblogs.com/aspirant/p/8991830.html
-    }
-
-    public static void handleStruction() {
-        // /bin - Tomcat 脚本存放目录（如启动、关闭脚本）。 *.sh 文件用于 Unix 系统； *.bat 文件用于 Windows 系统。
-        // /conf - Tomcat 配置文件目录。
-        // /logs - Tomcat 默认日志目录。
-        // /webapps - webapp 运行的目录。
     }
 
     public static void hanldeDeploy() {
@@ -108,7 +92,7 @@ public class Tomcat {
     }
 
     public static void handleProject() {
-        // |-- webapp                     # 站点根目录, (每个 war 包可以简单视为 webapp 的压缩包。)
+        // |-- root                       # 站点根目录, (每个 war 包可以简单视为 webapp 的压缩包。)
         // |-- META-INF                   # META-INF 目录
         // |   |-- MANIFEST.MF            # 配置清单文件
         // |-- WEB-INF                    # WEB-INF 目录
@@ -120,32 +104,5 @@ public class Tomcat {
         // |   |-- web.xml                # Web应用程序的部署描述文件
         // |-- <userdir>                  # 自定义的目录
         // |-- <userfiles>                # 自定义的资源文件
-    }
-
-    public static void main(String[] args) {
-        hanldeDeploy();
-        handleProject();
-        handleStruction();
-    }
-
-    public static void handlePreview() {
-
-    }
-
-    public static void handleHttps() {
-        // <Connector protocol="org.apache.coyote.http11.Http11Protocol"
-        //    port="443"
-        //    SSLEnabled="true"
-        //    maxThreads="150"
-        //    scheme="https"
-        //    secure="true"
-        //    keystoreFile="/usr/share/tomcat/conf/cert/cert-2019-11-14/3082649__willapps.com.pfx"
-        //    keystorePass="Rxh5dsHp"
-        //     keystoreType="PKCS12"
-        //    SSLProtocol="TLSv1+TLSv1.1+TLSv1.2"
-        //    SSLCipherSuite="ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4"
-        //    clientAuth="false"
-        //    ciphers="TLS_RSA_WITH_AES_128_CBC_SHA,TLS_RSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,TLS_RSA_WITH_AES_128_CBC_SHA256,TLS_RSA_WITH_AES_256_CBC_SHA256"/>
-
     }
 }

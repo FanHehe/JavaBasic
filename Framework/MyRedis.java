@@ -16,10 +16,10 @@ class MyRedis {
 
         // type
         //  - REDIS_STRING: string
-        //  - REDIS_LIST: list
-        //  - REDIS_HASH: hash
-        //  - REDIS_SET: set
-        //  - REDIS_ZSET: zset
+        //  - REDIS_LIST:   list
+        //  - REDIS_HASH:   hash
+        //  - REDIS_SET:    set
+        //  - REDIS_ZSET:   zset
         // encoding
 
         // https://www.cnblogs.com/ysocean/p/9102811.html
@@ -178,6 +178,12 @@ class MyRedis {
         // sentinel monitor 被监控机器的名字(自己起名字) ip地址 端口号 得票数
         // redis-sentinel /etc/redis/sentinel.conf
         // https://www.cnblogs.com/ysocean/p/9143118.html
+        //
+        // 降级
+        //
+        // 限流
+        //
+        // 熔断
     }
 
 }
