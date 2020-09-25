@@ -20,10 +20,11 @@ public class MySynchronized {
 
     public static void handleLockUpgrade() {
         // 无锁状态、偏向锁状态、轻量级锁状态、重量级锁状态（级别从低到高）
+        // monitor: https://blog.csdn.net/mulinsen77/article/details/88635558
         // https://blog.csdn.net/tongdanping/article/details/79647337
         // https://blog.csdn.net/lengxiao1993/article/details/81568130
 
-        // 偏向锁
+        // 偏向锁： -XX:-UseBiasedLocking = false
         // 原理：
         //  - 当线程1访问代码块并获取锁对象时，会在java对象头和栈帧中记录偏向的锁的threadID。
         // 因为偏向锁不会主动释放锁，因此以后线程1再次获取锁的时候。

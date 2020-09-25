@@ -3,14 +3,14 @@ package Framework;
 public class MySpring {
     public static void handleIoc() {
         // 依赖注入
-        // 控制权由对象本身转向容器；由容器根据配置文件去创建实例并创建各个实例之间的依赖关系
-        // bean工厂；在Spring中，bean工厂创建的各个实例称作bean
+        // 控制权由对象本身转向容器
+        //  由容器根据配置文件去创建实例并创建各个实例之间的依赖关系
+        // bean工厂 在Spring中，bean工厂创建的各个实例称作bean
         // - BeanWrapper
         // - BeanFactory
         // - BeanDefination
         //
-        // beanDefinition -> DefaultListableBeanFactory 解析过后的BeanDefinition在IoC容器中的注册
-        // singletonObjects -> DefaultSingletonBeanRegistry
+        // beanDefinition -> DefaultListableBeanFactory 解析过后的 BeanDefinition 在IoC容器中的注册
         //
         // DefaultSingletonBeanRegistry.singletonObjects
         // DefaultSingletonBeanRegistry.singletonFactories
@@ -40,7 +40,7 @@ public class MySpring {
         //          - @within()
         //          - @annotation
         //          - 带@指被xxx注解修饰
-        //          - 只有execution指示器是实际执行匹配的，其他指示器都是限制匹配的。
+        //          - 只有execution指示器是实际执行匹配的，其他指示器都是限制匹配的
         //      - 切点表达式
         //          - || && ! 或者 and or not 替换
         //          - execution(* com.fanhehe.cmd.service.HomeService.handleIndex(..))
@@ -54,7 +54,7 @@ public class MySpring {
         //      - 编译时
         //      - 类加载时
         //      - 运行时
-        //          - JDK InvokeHandler
+        //          - JDK InvocationHandler
         //
         // public class SubjectProxy implements java.lang.reflect.InvocationHandler {
         //
@@ -82,7 +82,6 @@ public class MySpring {
         //
         // }
         //          - CGLib 基于类继承的动态代理
-        //          -
         // SpringAOP
         //
         //  - 基于代理的经典SpringAOP
@@ -168,14 +167,14 @@ public class MySpring {
         //  - TransactionDefinition： 事务定义信息
         //      - 传播行为: 用来描述某个事务传播行为修饰的方法被嵌套进另一个方法时如何进行传播
         //          - https://segmentfault.com/a/1190000013341344
-        //          - .PROPAGATION_REQUIRED: 如果当前存在事务，则加入该事务；如果当前没有事务，则创建一个新的事务
-        //          - .PROPAGATION_REQUIRES_NEW: 创建一个新的事务，如果当前存在事务，则把当前事务挂起
-        //          - .PROPAGATION_SUPPORTS: 果当前存在事务，则加入该事务；如果当前没有事务，则以非事务的方式继续运行
-        //          - .PROPAGATION_MANDATORY: 如果当前存在事务，则加入该事务；如果当前没有事务，则抛出异常
-        //          - .PROPAGATION_NOT_SUPPORTED: 以非事务方式运行，如果当前存在事务，则把当前事务挂起
-        //          - .PROPAGATION_NEVER: 以非事务方式运行，如果当前存在事务，则抛出异常
-        //          - .PROPAGATION_NESTED: 如果当前存在事务，则创建一个事务作为当前事务的嵌套事务来运行
-        //              如果当前没有事务，则该取值等价于.PROPAGATION_REQUIRED, (SavePoint)
+        //          - Propagation
+        //              - REQUIRED: 如果当前存在事务，则加入该事务；如果当前没有事务，则创建一个新的事务
+        //              - REQUIRES_NEW: 创建一个新的事务，如果当前存在事务，则把当前事务挂起
+        //              - SUPPORTS: 果当前存在事务，则加入该事务；如果当前没有事务，则以非事务的方式继续运行
+        //              - MANDATORY: 如果当前存在事务，则加入该事务；如果当前没有事务，则抛出异常
+        //              - NOT_SUPPORTED: 以非事务方式运行，如果当前存在事务，则把当前事务挂起
+        //              - NEVER: 以非事务方式运行，如果当前存在事务，则抛出异常
+        //              - NESTED: 如果当前存在事务，则创建一个事务作为当前事务的嵌套事务来运行，如果当前没有事务，则该取值等价于.PROPAGATION_REQUIRED, (SavePoint)
         //
         //      - 超时
         //          - 一个事务允许执行的最长时间, 超时未完成自动回滚
@@ -208,57 +207,6 @@ public class MySpring {
     public static void ImportBeanAliasBeansLabel() {
         // 请求的完整路径
         // https://www.zhenchao.org/2017/07/23/spring/spring-mvc-src-request-sequence/
-    }
-
-    public static void ConfigurationFileLookFor() {
-
-        // Spring mvc应用支持一个父上下文和N个上下文
-        // 我们常用的配置中一般存在一个父上下文，一个子上下文
-        // ContextLoaderListener.contextInitialized 创建的是父上下文
-        // FrameworkServlet.createWebApplicationContext() 创建的是子上下文
-
-        // ContextLoader.properties
-        // 配置属性文件
-        // 修改defaultStrategies的机会
-        // 默认有个配置文件是： org.springframework.web.context.ContextLoader.properties
-        // 指定了默认的org.springframework.web.context.WebApplicationContext 是 XmlWebApplicationContext
-
-        // DispatcherServlet.properties
-        // 配置属性文件
-        // 可以重新规定spring mvc核心组件的处理器, 如果不指定则使用默认
-        // 默认有个配置文件是：org.springframework.web.servlet.DispatcherServlet.properties
-        // FrameworkServlet的构造函数中指定了默认的org.springframework.web.context.WebApplicationContext是XmlWebApplicationContext.class
-
-        // 父容器的配置文件
-        // <context-param>
-        //     <!--可以使用contextConfigLocation属性名指定-->
-        //     <param-name>contextConfigLocation</param-name>
-        //     <param-value>/WEB-INF/applicationContext.xml</param-value>
-        // </context-param>
-        // 被用于 ContextLoader.createWebApplicationContext 设置配置文件路径
-        // ```wac.setConfigLocation(sc.getInitParameter("contextConfigLocation"));```
-        // 核心 新建并执行rootWAC.refresh() 进行初始化IOC容器
-
-        // 子容器的配置文件
-        // <servlet>
-        // <servlet-name>springmvc</servlet-name>
-        // <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        // <init-param>
-        //     <!--如果不加init-param的话，默认加载【servlet-name】-servlet.xml-->
-        //     <param-name>contextConfigLocation</param-name>
-        //     <param-value>classpath*:servlet-mvc.xml</param-value>
-        // </init-param>
-        // FrameworkServlet.createWebApplicationContext->
-        // ``` 本行代码
-        //       wac.setNamespace(this.getNamespace());
-        // ```
-        //
-        // DispatcherServlet框架内的三层继承关系
-        // DispatcherServlet --> FrameworkServlet --> HttpServletBean(重写init方法)
-        // Servlet内的三层继承关系
-        // HttpServletBean --> HttpServlet --> GenericServlet
-        //
-        // Tomcat 调用 GenericServlet.init(ServletConfig sc)，左方内部调用this.init()，进行真正的初始化
     }
 
     public static void typesOfWebApplicationContext() {
@@ -385,28 +333,6 @@ public class MySpring {
         // 13. 如果bean实现了DisposableBean则那么将会调用destory()方法，释放资源，记录日志文件
         //
         // 14. 如果Bean中通过destory-method属性定义了销毁方法，则将执行这个方法
-
-        //  可以将bean的生命周期分成四类
-        //  1.  Bean自身的方法：
-        //      - 如调用Bean构造函数实例化Bean
-        //      - 调用Setter方法设置属性值
-        //      - 通过<bean>的init-method 和 destory-method所指定的方法
-        //
-        //  2. Bean级生命周期的方法:
-        //      - BeanNameAware
-        //      - BeanFactoryAware
-        //      - InitializationBean
-        //      - DisposableBean，这些接口方法可由Bean实现
-        //
-        //  3. 容器级生命周期接口方法:
-        //      - InstantiationAwareBeanPostProcessor
-        //      - BeanPostProcessor
-        //      - 处理器接口一般不由Bean本身实现，他们独立于Bean，配置在容器上
-        //
-        //  4. 工厂后处理器接口:
-        //      - ApsectJWeavingEnabler
-        //      - CustomerAutoWireConfigurer
-        //      - ConfigurationClassPostProcessor等，也是容器级的，在应用上下文装配配置文件后自动调用
     }
 
     public static void makeRequest() {
@@ -441,20 +367,6 @@ public class MySpring {
 
     public static void start() {
         // # Spring MVC 流程
-
-        // ## 简单版
-        // > https://www.jianshu.com/p/dc64d02e49ac
-
-        // ## 详细版
-        // > Spring MVC 和Tomcat均实现了Servlet协议，并满足Servlet的生命周期init，service和destory。
-
-        // Web应用部署流程来规定：
-
-        // When a web application is deployed into a container, the following steps must be performed, in this order, before the web application begins processing client requests.
-        //     1. Instantiate an instance of each event listener identified by a <listener> element in the deployment descriptor.
-        //     2. For instantiated listener instances that implement ServletContextListener, call the contextInitialized() method.
-        //     3. Instantiate an instance of each filter identified by a <filter> element in the deployment descriptor and call each filter instance’s init() method.
-        //     4. Instantiate an instance of each servlet identified by a <servlet> element that includes a <load-on-startup> element in the order defined by the load-onstartup element values, and call each servlet instance’s init() method.
 
         // 简单来说：对于web.xml中的配置项, tomcat的处理优先级为: listener > filter > servlet
 
@@ -492,6 +404,8 @@ public class MySpring {
     public static void springBootAuto() {
         // @SpringBootApplication
         // @EnableAutoConfiguration
+        //  - @AutoConfigurationPackage
+        //      - @Import({Registrar.class}) // 加载代码
         //  - @Import({AutoConfigurationImportSelector.class}) // 加载依赖
         //      - selectImports
         //          - META-INF/spring.factories
@@ -500,8 +414,7 @@ public class MySpring {
         //          - 类上会有ConditionalOnBean or ConditionalOnClass，条件加载
         //          - EnableConfigrationProperties指定配置类 and ConfigrationProperties注解配置类，指定前缀
         //          - EnableAutoConfiguration的类则通过构造函数注入的方式将ConfigrationProperties注入进去
-        //  - @AutoConfigurationPackage
-        //      - @Import({Registrar.class}) // 加载代码
+
         //
         // https://www.cnblogs.com/hjwublog/p/10332042.html#_labelTop
     }

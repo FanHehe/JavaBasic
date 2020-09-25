@@ -5,9 +5,8 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask; // RecursiveTask extends ForkJoinTask
 
 public class MyForkJoin {
-    // 参考Inter cilk 语言
-    //
 
+    // 参考Inter cilk 语言
     static class Task extends RecursiveTask<Integer> {
 
         private int from = 0;

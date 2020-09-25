@@ -21,7 +21,7 @@ public class MyBlocking {
     }
 
     //  延迟队列
-    static void handleDelayQueue() throws InterruptedException{
+    static void handleDelayQueue() throws InterruptedException {
         long now = System.currentTimeMillis();
         Task task = new Task(now + 10000, "task");
         DelayQueue<Task> queue = new DelayQueue<>();

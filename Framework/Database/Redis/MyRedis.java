@@ -2,15 +2,10 @@ class MyRedis {
 
     void handleObject() {
         // typedef struct redisObject{
-        //      //类型
         //      unsigned type:4;
-        //      //编码
         //      unsigned encoding:4;
-        //      //指向底层数据结构的指针
         //      void *ptr;
-        //      //引用计数
         //      int refcount;
-        //      //记录最后一次被程序访问的时间
         //      unsigned lru:22;
         // } robj;
 
@@ -25,19 +20,14 @@ class MyRedis {
         // https://www.cnblogs.com/ysocean/p/9102811.html
     }
 
-
     void handleDataType() {
         // string
-        //  - simple dynamic string,SDS
+        //  - simple dynamic string, SDS
         //  struct sdshdr{
-        //     //记录buf数组中已使用字节的数量
-        //     //等于 SDS 保存字符串的长度
         //     int len;
-        //     //记录 buf 数组中未使用字节的数量
         //     int free;
-        //     //字节数组，用于保存字符串
         //     char buf[];
-        //   }
+        //  }
         // list
         //  - 双端链表，带字段记录长度，表头节点的 prev 指针和表尾节点的 next 指针都指向 NULL,对链表的访问都是以 NULL 结束，链表节点使用 void* 指针来保存节点值，可以保存各种不同类型的值
         //  - ziplist（压缩列表）（节省内存）：https://www.cnblogs.com/ysocean/p/9080942.html
@@ -49,38 +39,25 @@ class MyRedis {
         //  -
         // set
         //  - 　整数集合（intset）：
-        //      -
+
         // zset
-        //  - 跳跃表
-        //      // 节点
-        //      - typedef struct zskiplistNode {
+        //      typedef struct zskiplistNode {
+        //          struct zskiplistLevel {
+        //              unsigned int span;
+        //              struct zskiplistNode *forward;
+        //          } level[];
         //
-        //      struct zskiplistLevel {
-        //            //前进指针
-        //            struct zskiplistNode *forward;
-        //            //跨度
-        //            unsigned int span;
-        //      }level[];
-
-        //      //后退指针
-        //      struct zskiplistNode *backward;
-        //      //分值
-        //      double score;
-        //      //成员对象
-        //      robj *obj;
-
-        // } zskiplistNode
+        //          robj *obj;
+        //          double score;
+        //          struct zskiplistNode *backward;
+        //        } zskiplistNode
         //
-        // 跳表
-        // typedef struct zskiplist{
-        //      //表头节点和表尾节点
-        //      structz skiplistNode *header, *tail;
-        //      //表中节点的数量
-        //      unsigned long length;
-        //      //表中层数最大的节点的层数
+        // typedef struct zskiplist {
         //      int level;
+        //      unsigned long length;
+        //      structz skiplistNode *header, *tail;
         // } zskiplist;
-        //
+
         // hash
         //  - 字典：字典中的每一个键 key 都是唯一的，通过 key 可以对值来进行查找或修改。C 语言中没有内置这种数据结构的实现，所以字典依然是 Redis自己构建的。
         //  - 拉链法
@@ -91,8 +68,6 @@ class MyRedis {
     void hanldeDuration() {
 
         // 同时: RDB与AOF同时开启  默认先加载AOF的配置文件
-
-
         // RDB(快照保存到硬盘)(数据完整性要求很严格的需求)
         //  原理:
         //      - fork一个进程，遍历hash table，利用copy on write，把整个db dump保存下来。
@@ -103,14 +78,17 @@ class MyRedis {
         //  原理:
         //      - 把写操作指令，持续的写到一个类似日志文件里。
         //      - 粒度较小，crash之后，只有crash之前没有来得及做日志的操作没办法恢复。
-        //  - 每次有新命令追加到 AOF 文件时就执行一次 fsync ：非常慢，也非常安全: appendfsync always
-        //  - 每秒 fsync 一次：足够快（和使用 RDB 持久化差不多），并且在故障时只会丢失 1 秒钟的数据: appendfsync everysec
-        //  - 从不 fsync ：将数据交给操作系统来处理。更快，也更不安全的选择: appendfsync no
+        //  - 每次有新命令追加到 AOF 文件时就执行一次 fsync ：非常慢，也非常安全:
+        //  - appendfsync
+        //      - no 从不
+        //      - always 总是
+        //      - everysec 每秒 fsync 一次：足够快（和使用 RDB 持久化差不多），并且在故障时只会丢失 1 秒钟的数据
         //  开启：appendonly yes(默认no,关闭)
+        //  -
 
         // 分布式锁的开源Redisson框架的实现机制
         //  - 可重入
-        //
+
         //  作为缓存:
         //      - 缓存雪崩: 大量缓存同时失效，大量请求到数据库
         //          - 缓存失效时间分散开
@@ -124,15 +102,11 @@ class MyRedis {
         //          - 定时刷新缓存
         //      - 缓存更新:
         //          - redis缓存存失效策略: 6种
-        //              -
         //          - 定期刷新
         //      - 缓存降级:
         //          - 系统可以根据一些关键数据进行自动降级，也可以配置开关实现人工降级
         //          - 当访问量剧增、服务出现问题（如响应时间慢或不响应）或非核心服务影响到核心流程的性能时，仍然需要保证服务还是可用的，即使是有损服务
         //          - 服务降级的目的，是为了防止Redis服务故障，导致数据库跟着一起发生雪崩问题。因此，对于不重要的缓存数据，可以采取服务降级策略，例如一个比较常见的做法就是，Redis出现问题，不去数据库查询，而是直接返回默认值给用户
-
-        //  热点数据和冷数据是什么
-        //  那存不存在，修改频率很高，但是又不得不考虑缓存的场景呢？有！比如，这个读取接口对数据库的压力很大，但是又是热点数据，这个时候就需要考虑通过缓存手段，减少数据库的压力，比如我们的某助手产品的，点赞数，收藏数，分享数等是非常典型的热点数据，但是又不断变化，此时就需要将数据同步保存到Redis缓存，减少数据库压力
 
         // Memcache与Redis的区别都有哪些？
         // 1)、存储方式 Memecache把数据全部存在内存之中，断电后会挂掉，数据不能超过内存大小。 Redis有部份存在硬盘上，redis可以持久化其数据
@@ -178,12 +152,42 @@ class MyRedis {
         // sentinel monitor 被监控机器的名字(自己起名字) ip地址 端口号 得票数
         // redis-sentinel /etc/redis/sentinel.conf
         // https://www.cnblogs.com/ysocean/p/9143118.html
+    }
+
+    public static void hanldeClient() {
+
+        // https://www.cnblogs.com/liyan492/p/9858548.html
+
+        // spring-data-redis
+        // jedis
+        //  - 是Redis的Java实现客户端，提供了比较全面的Redis命令的支持
+        //  - 使用阻塞的I/O，且其方法调用都是同步的，程序流需要等到sockets处理完I/O才能执行，不支持异步。Jedis客户端实例不是线程安全的，所以需要通过连接池来使用Jedis。
+        // letture
+        //  - 高级Redis客户端，用于线程安全同步，异步和响应使用，支持集群，Sentinel，管道和编码器
+        //  - 基于Netty框架的事件驱动的通信层，其方法调用是异步的。Redisson的API是线程安全的，所以可以操作单个Redisson连接来完成各种操作
+        // reddsion
+        //  - 实现了分布式和可扩展的Java数据结构
+        //  - 基于Netty框架的事件驱动的通信层，其方法调用是异步的。Lettuce的API是线程安全的，所以可以操作单个Lettuce连接来完成各种操作
+    }
+
+    public static void handleCluster() {
+
+        // https://www.cnblogs.com/silent2012/p/10697896.html
+        // https://blog.csdn.net/tianshi_rain/article/details/86612193
         //
-        // 降级
-        //
-        // 限流
-        //
-        // 熔断
+        // bind 172.16.71.183 一定要写本机ip并且建立集群的时候要用这个ip建立
+        // port 6379
+        // cluster-enabled yes 启动集群
+        // cluster-config-file nodes.conf 节点信息，自动生成
+        // cluster-node-timeout 5000 超时时间
+        // appendonly yes 持久化
+        // **建议增加 **
+        // dir /var/user/redis-5.0.3/6379/ 文件路径
+        // pidfile /var/run/redis_6379.pid pid位置
+        // daemonize yes 守护线程模式（后台启动）
+        // requirepass “CSFW” 访问密码
+        // masterauth “CSFW” 主机密码
+        // redis-cli --cluster create 127.0.0.1:6379 127.0.0.1:6380 127.0.0.1:6381 127.0.0.1:6382 127.0.0.1:6383 127.0.0.1:6384 --cluster-replicas 1
     }
 
 }

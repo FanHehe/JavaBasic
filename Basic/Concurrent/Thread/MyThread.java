@@ -63,18 +63,21 @@ public class MyThread {
          * The thread has completed execution.
          */
         TERMINATED;
-
         // Thread.State : NEW, RUNNABLE, BLOCKED, WAITING, TIMED_WAITING, TERMINATED
     }
 
     public static void handleThreadLocal() {
 
+        //  ThreadLocal.ThreadLocalMap threadLocals = null; // 实例变量
+        //  获取ThreadLocalMap，再拿this作为key，获取到实际的值
+
+        ThreadLocal<Integer> threadLocal = new ThreadLocal<>();
+
         threadLocal.set(value);
 
         System.out.println(threadLocal.get());
-
-        ThreadLocal<Integer> threadLocal = new ThreadLocal<>();
     }
+
 
     class MyThreadPool {
 

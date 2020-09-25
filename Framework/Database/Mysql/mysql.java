@@ -1,38 +1,40 @@
-package Framework.Database;
+package Framework.Database.Mysql;
 
 class mysql {
 
     public static void handleExplain() {
         // select_type: SELECT 查询的类型
-
         //     SIMPLE, 表示此查询不包含 UNION 查询或子查询
         //     PRIMARY, 表示此查询是最外层的查询
         //     UNION, 表示此查询是 UNION 的第二或随后的查询
         //     DEPENDENT UNION, UNION 中的第二个或后面的查询语句, 取决于外面的查询
         //     UNION RESULT, UNION 的结果
+        //     DERIVED, 派生表
         //     SUBQUERY, 子查询中的第一个 SELECT
         //     DEPENDENT SUBQUERY: 子查询中的第一个 SELECT, 取决于外面的查询. 即子查询依赖于外层查询的结果.
-
         // type:
-
-        //     system: 表中只有一条数据. 这个类型是特殊的 const 类型.
         //     const: 针对主键或唯一索引的等值查询扫描, 最多只返回一行数据. const 查询速度非常快, 因为它仅仅读取一次即可.
-        //     eq_ref: 此类型通常出现在多表的 join 查询, 表示对于前表的每一个结果, 都只能匹配到后表的一行结果. 并且查询的比较操作通常是 =, 查询效率较高
-        //     ref: 使用了最左前缀 规则索引的查询，或者是此类型通常出现在多表的 join 查询, 针对于非唯一或非主键索引
+        //     ref: 使用了最左前缀, 规则索引的查询，或者是此类型通常出现在多表的 join 查询, 针对于非唯一或非主键索引
         //     range: 表示使用索引范围查询, 通过索引字段范围获取表中部分数据记录. 这个类型通常出现在 =, <>, >, >=, <, <=, IS NULL, <=>, BETWEEN, IN() 操作中. 当 type 是 range 时, 那么 EXPLAIN 输出的 ref 字段为 NULL, 并且 key_len 字段是此次查询中使用到的索引的最长的那个.
         //     index: 表示全索引扫描(full index scan), 和 ALL 类型类似, 只不过 ALL 类型是全表扫描, 而 index 类型则仅仅扫描所有的索引, 而不扫描数据. index 类型通常出现在: 所要查询的数据直接在索引树中就可以获取到, 而不需要扫描数据. 当是这种情况时, Extra 字段 会显示 Using index.
         //     ALL: 表示全表扫描, 这个类型的查询是性能最差的查询之一. 通常来说, 我们的查询不应该出现 ALL 类型的查询, 因为这样的查询在数据量大的情况下, 对数据库的性能是巨大的灾难. 如一个查询是 ALL 类型查询, 那么一般来说可以对相应的字段添加索引来避免.
-
-        //     ALL < index < range ~ index_merge < ref < eq_ref < const < system
-
+        //
+        //     ALL < index < range < ref < const
         // key
-
+        //
         // extra: 额外的信息
         //     Using filesort
         //     Using index : "覆盖索引扫描", 表示查询在索引树中就可查找所需数据, 不用扫描表数据文件, 往往说明性能不错
         //     Using temporary
         //     No tables used
         //     Using Where
+        //
+        //  SET profiling = 1;
+        //      - show profiles;
+        //      - show profile block io,cpu for query 3;
+        //
+        //  SET optimizer_trace="enabled=on"
+        //      - select * from information_schema.optimizer_trace;
     }
 
     public static void hanldeFanshi() {
@@ -89,15 +91,11 @@ class mysql {
         //                  - 其它事务无法修改这些数据，就可以实现可重复读了。但这种方法却无法锁住insert的数据
         //                  - 所以当事务A先前读取了数据，或者修改了全部数据，事务B还是可以insert数据提交，
         //                  - 这时事务A就会 发现莫名其妙多了一条之前没有的数据，这就是幻读，不能通过行锁来避免。
-        //
         //      - 串行化
-        //  - D: 持久性(Durability)
-
+        // - D: 持久性(Durability)
     }
 
     public static void handleMVCC() {
-
-        //
         // DB_TRX_ID：数据行的版本号
         // DB_ROLL_PT：删除版本号
         // 在每一行数据中额外保存两个隐藏的列：当前行创建时的版本号和删除时的版本号（可能为空，其实还有一列称为回滚指针，用于事务回滚，不在本文范畴）。
@@ -115,7 +113,6 @@ class mysql {
         // 同时如果多个事务来读取这条记录，会从Undo buffer中读取这条记录（称为这条记录的快照）
     }
 
-
     public static void handleLog() {
         // undo-log
         // undo意为取消，以撤销操作为目的，返回指定摸个状态的操作, undo log指事务开始之前，在操作任何数据之前，首先将需要操作的数据备份到一个地方
@@ -127,8 +124,24 @@ class mysql {
         // 取值0，每秒提交Redo buffer–> Redo log OS cache --> flush cache to disk[可能丢失一秒内的事务数据]
         // 取值1（默认值），每次事务提交执行Redo buffer --> Redo log OS cache --> flush cache to disk[最安全，性能最差]
         // 取值2，每次事务提交执行Redo buffer --> Redo log OS cache 再每隔一秒–> flush cache to disk
-
-        //
     }
 
+    public static void handleBPlusTree() {
+        // B+树的特征：
+        // 1.有k个子树的中间节点包含有k个元素（B树中是k-1个元素），每个元素不保存数据，只用来索引，所有数据都保存在叶子节点。
+        // 2.所有的叶子结点中包含了全部元素的信息，及指向含这些元素记录的指针，且叶子结点本身依关键字的大小自小而大顺序链接。
+        // 3.所有的中间节点元素都同时存在于子节点，在子节点元素中是最大（或最小）元素。
+        // B+树的优势：
+        // 1.单一节点存储更多的元素，使得查询的IO次数更少。
+        // 2.所有查询都要查找到叶子节点，查询性能稳定。
+        // 3.所有叶子节点形成有序链表，便于范围查询。
+    }
+
+    public static void handleParams() {
+        // useUnicode=true
+        // characterEncoding=utf8
+        // autoReconnect=true
+        // rewriteBatchedStatements=TRUE
+        // zeroDateTimeBehavior=convertToNull
+    }
 }

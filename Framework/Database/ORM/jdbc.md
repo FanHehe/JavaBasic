@@ -99,6 +99,8 @@ class DBUtil {
     - https://cloud.tencent.com/developer/article/1438233
 - druid
 
+- hikari
+
 ### 面试题
 
 > https://www.cnblogs.com/kevinf/p/3705148.html

@@ -2,7 +2,6 @@ package Protocol;
 
 class Http {
 
-
     public static void handleCors {
         // http://www.ruanyifeng.com/blog/2016/04/cors.html
         // 整个CORS通信过程，都是浏览器自动完成，不需要用户参与。

@@ -2,6 +2,27 @@ public class Tomcat {
 
     public static void handleClassLoader() {
         // https://www.cnblogs.com/aspirant/p/8991830.html
+        // 普通
+        // BootstrapClassLoader
+        //  - ExtensionClassLoader
+        //      - ApplicationClassLoader
+        //
+        // Tomcat
+        // BootstrapClassLoader
+        //  - ExtensionClassLoader
+        //      - ApplicationClassLoader
+        //          - CommonClassLoader
+        //              - CatalinaClassLoader
+        //              - SharedClassLoader
+        //                  - WebappClassLoader
+        //                      - JspClassLoader
+        //
+        //  它们分别加载/common/*、/server/*、/shared/*（在tomcat 6之后已经合并到根目录下的lib目录下）和/WebApp/WEB-INF/*中的Java类库
+        //  其中WebApp类加载器和Jsp类加载器通常会存在多个实例，每一个Web应用程序对应一个WebApp类加载器，每一个JSP文件对应一个Jsp类加载器。
+        //  commonLoader：Tomcat最基本的类加载器，加载路径中的class可以被Tomcat容器本身以及各个Webapp访问；
+        //  catalinaLoader：Tomcat容器私有的类加载器，加载路径中的class对于Webapp不可见；
+        //  sharedLoader：各个Webapp共享的类加载器，加载路径中的class对于所有Webapp可见，但是对于Tomcat容器不可见；
+        //  WebappClassLoader：各个Webapp私有的类加载器，加载路径中的class只对当前Webapp可见；e
     }
 
     public static void hanldeDeploy() {
@@ -14,7 +35,6 @@ public class Tomcat {
         // 二、不同域名，多端口访问
         //
         // 同一个Server下，配置两个Service
-        //
 
         // Sever.port 发送shutDown字符串, 关闭当前tomcat实例
         // Connector.http.port http 协议监听
@@ -30,12 +50,8 @@ public class Tomcat {
     }
 
     public static void handleServerConfig() {
-        // <Server
-        //     port = "8005"
-        //     shutdown = "SHUTDOWN">
-        //     <Service
-        //         name="Catalina">
-        //
+        // <Server port = "8005" shutdown = "SHUTDOWN">
+        //     <Service name="Catalina">
         //         <Connector
         //             port = "80"
         //             maxThreads = "4000"
@@ -104,5 +120,14 @@ public class Tomcat {
         // |   |-- web.xml                # Web应用程序的部署描述文件
         // |-- <userdir>                  # 自定义的目录
         // |-- <userfiles>                # 自定义的资源文件
+    }
+
+    public static void javaOpts() {
+        // -server -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/root/error/heapdump
+        // -Xmx1024m -Xms1024m
+        // -Xss256k -XX:SurvivorRatio=6
+        // -XX:+UseG1GC -XX:+UseStringDeduplication
+        // -XX:ParallelGCThreads=8
+        // -XX:+PrintGC -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintHeapAtGC -Xloggc:/usr/share/tomcat7/logs/gc.log
     }
 }

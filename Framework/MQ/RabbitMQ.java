@@ -1,28 +1,25 @@
 class RabbitMQ {
     void handleBase() {
         // 1.解耦，系统A在代码中直接调用系统B和系统C的代码，如果将来D系统接入，系统A还需要修改代码，过于麻烦！
-
         // 2.异步，将消息写入消息队列，非必要的业务逻辑以异步的方式运行，加快响应速度
-
         // 3.削峰，并发量大的时候，所有的请求直接怼到数据库，造成数据库连接异常
     }
 
     void handleKey() {
-        // Broker:它提供一种传输服务,它的角色就是维护一条从生产者到消费者的路线，保证数据能按照指定的方式进行传输,
-        // Exchange：消息交换机,它指定消息按什么规则,路由到哪个队列。
+        // Broker:   它提供一种传输服务,它的角色就是维护一条从生产者到消费者的路线，保证数据能按照指定的方式进行传输
+        // Exchange: 消息交换机,它指定消息按什么规则,路由到哪个队列。
         //  - direct(默认) 完全匹配routingKey
-        //  - fanout: 不管消息的ROUTING_KEY设置为什么，Exchange都会将消息转发给所有绑定的Queue
-        //  - topic: 主题交换器，工作方式类似于组播，Exchange会将消息转发和ROUTING_KEY匹配模式相同的所有队列，比如，ROUTING_KEY为user.stock的Message会转发给绑定匹配模式为 * .stock,user.stock， * . * 和#.user.stock.#的队列。（ * 表是匹配一个任意词组，#表示匹配0个或多个词组）
+        //  - fanout:  不管消息的ROUTING_KEY设置为什么，Exchange都会将消息转发给所有绑定的Queue
+        //  - topic:   主题交换器，工作方式类似于组播，Exchange会将消息转发和ROUTING_KEY匹配模式相同的所有队列，比如，ROUTING_KEY为user.stock的Message会转发给绑定匹配模式为 * .stock,user.stock， * . * 和#.user.stock.#的队列。（ * 表是匹配一个任意词组，#表示匹配0个或多个词组）
         //  - headers: headers 消息体的header匹配（ignore）
-        // Queue:消息的载体,每个消息都会被投到一个或多个队列。
-        // Binding:绑定，它的作用就是把exchange和queue按照路由规则绑定起来.
+        // Queue: 消息的载体,每个消息都会被投到一个或多个队列。
+        // Binding: 绑定，它的作用就是把exchange和queue按照路由规则绑定起来.
         // Routing Key:路由关键字,exchange根据这个关键字进行消息投递。
-        // vhost:虚拟主机,一个broker里可以有多个vhost，用作不同用户的权限分离。
-        // Producer:消息生产者,就是投递消息的程序.
-        // Consumer:消息消费者,就是接受消息的程序.
-        // Channel:消息通道,在客户端的每个连接里,可建立多个channel.
-        //
-        // RabbitMQ使用ProtoBuf序列化消息,它可作为RabbitMQ的Message的数据格式进行传输,由于是结构化的数据
+        // vhost:  虚拟主机,一个broker里可以有多个vhost，用作不同用户的权限分离。
+        // Producer: 消息生产者,就是投递消息的程序.
+        // Consumer: 消息消费者,就是接受消息的程序.
+        // Channel: 消息通道,在客户端的每个连接里,可建立多个channel.
+        // RabbitMQ使用ProtoBuf序列化消息, 它可作为RabbitMQ的Message的数据格式进行传输, 由于是结构化的数据
     }
 
     void handleMessage() {
@@ -31,8 +28,7 @@ class RabbitMQ {
         // 发送方确认模式：将信道设置成confirm模式（发送方确认模式），则所有在信道上发布的消息都会被指派一个唯一的ID。
         // 一旦消息被投递到目的队列后，或者消息被写入磁盘后（可持久化的消息），信道会发送一个确认给生产者（包含消息唯一ID）。
         // 如果RabbitMQ发生内部错误从而导致消息丢失，会发送一条nack（not acknowledged，未确认）消息。
-        // 发送方确认模式是异步的，生产者应用程序在等待确认的同时，可以继续发送消息。当确认消息到达生产者应用程序，生产者应用程序的回调方法就会被触发来处理确认消息。
-        //
+        // 发送方确认模式是异步的，生产者应用程序在等待确认的同时，可以继续发送消息。当确认消息到达生产者应用程序，生产者应用程序的回调方法就会被触发来处理确认消息。（publisher-returns设为true ）
         //
         // 消息重复
         // 存在订单号即可
@@ -46,16 +42,30 @@ class RabbitMQ {
         //  4. 发送消息的时候将deliveryMode=2
         //  三：消费者丢失
         //  5. 启用手动确认模式可以解决这个问题
-        //      ①自动确认模式
-        //      ②手动确认模式
-        //      ③不确认模式
+        //      ① 自动确认模式
+        //      ② 手动确认模式
+        //      ③ 不确认模式
         // 如果要完全100%保证写入RabbitMQ的数据必须落地磁盘，不会丢失，需要依靠其他的机制，即RabbitMQ不能100%确认消息不丢失。
         // 当Mandatory参数设为true时，如果目的不可达，会发送消息给生产者，生产者通过一个回调函数来获取该信息。
         // https://www.iteye.com/blog/uule-2439190
     }
 
-    void hanldeMany() {
-        // 单一模式：即单机情况不做集群，就单独运行一个rabbitmq而已
-        // 普通模式：默认模式，以两个节点（rabbit01、rabbit02）为例来进行说明,rabbit01和rabbit02两个节点仅有相同的元数据，即队列的结构.
+    void hanldeDistributed() {
+        // 单一模式：即单机情况不做集群，就单独运行一个rabbitmq
+        // 普通模式：默认集群模式，以两个几点（rabbit01、rabbit02）为例进行说明
+        //      对于队列来说，消息实体只存在于其中一个节点rabbit01，rabbit01和rabbit02两个节点有相同的数据。
+        //      当消息进入rabbit01节点的队列后，若消费者从2节点消费，则rabbitmq会临时在rabbit01、rabbit02间进行消息传输。
+        //      把A中的消息实体取出并经过B发送给consumer。所以consumer应尽量连接每一个节点，从中取消息。
+        //      即对于同一个逻辑队列，要在多个节点建立物理queue。否则无论consumer连rabbit01还是rabbit02，出口总在rabbit01，会产生瓶颈。
+        //      当rabbit01节点故障后，rabbit02节点无法取到rabbit01节点中还未消费的消息实体。
+        //      如果做了消息持久化，那么得等rabbit01 节点恢复，然后才可被消费；如果没有持久化的话，就会产生消息丢失的现象
+        // 镜像模式：基于普通模式集群，在策略里面添加镜像策略即可。
+        //      把需要的队列做成镜像队列，属于HA方案。该模式解决了普通模式中的问题，
+        //      根本区别在于消息实体会主动在镜像节点间同步，而不是在客户端拉取数据时临时拉取。
+        //      当然弊端就是降低系统性能，大量消息写入，集群内的网路带宽会被大大消耗
+    }
+
+    void handleDeadthQueue() {
+
     }
 }

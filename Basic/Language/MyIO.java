@@ -92,13 +92,25 @@ public class MyIO {
         //     - Buffer: 缓冲区实际上是一个数组，并提供了对数据结构化访问以及维护读写位置等信息
         //     - ByteBuffe、CharBuffer、 ShortBuffer、IntBuffer、LongBuffer、FloatBuffer、DoubleBuffer。
         //     - 他们实现了相同的接口：Buffer。
-        //      -
+        //     - Buffer属性:
+        //      - capacity: 缓冲区数组的总长度
+        //      - position: 下一个要操作的数据元素的位置
+        //      - limit: 缓冲区数组中不可操作的下一个元素的位置：limit<=capacity
+        //      - mark: 用于记录当前position的前一个位置或者默认是-1
+        //     - Buffer方法:
+        //      - flip: 缓冲区中数据写入Channel，position设回0，并将limit设成之前的position的值
+        //      - clear: position将被设回0，limit设置成capacity
+        //      - mark: 标记Buffer中的一个特定的position
+        //      - reset: 恢复到这个position
+        //      - rewind: 方法将position设回0，limit保持不变，所以你可以重读Buffer中的所有数据
         //   - Channel
         //     - 我们对数据的读取和写入要通过Channel，它就像水管一样，是一个通道。通道不同于流的地方就是通道是双向的，可以用于读、写和同时读写操作。
         //      - SelectableChannel用户网络读写
         //      - FileChannel：用于文件操作
         //      - ServerSocketChannel
         //      - SocketChannel都是SelectableChannel的子类。
+        //     - 方法
+        //      - configureBlocking(true/false)
         //   - Selector(多路复用器)
         //     - Selector是Java  NIO 编程的基础。
         //     - Selector提供选择已经就绪的任务的能力
@@ -157,7 +169,6 @@ public class MyIO {
         try {
 
             Path path = Paths.get("README.md");
-
             ByteBuffer buffer = ByteBuffer.allocate(1024);
             CharBuffer charBuffer = CharBuffer.allocate(1024);
             CharsetDecoder decoder = Charset.defaultCharset().newDecoder();
@@ -176,6 +187,12 @@ public class MyIO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void handleIoPattern() {
+        // https://www.jianshu.com/p/b7723c489e1c
+        // Reactor
+        // Proactor
     }
 
     public static void main(String[] args) {

@@ -33,7 +33,7 @@ public class JVM {
         //  - 弱引用：java.lang.ref.WeakReference (在下一场GC之前，就会被回收掉)
         //  - 虚引用：java.lang.ref.PhantomReference (一个对象是否有虚引用，对对象的生存时间不会构成影响)
         //
-        //  finalize(): 挽救一个将被回收的对象的最后机会，仅会被调用一次。
+        //  finalize():
         //
         //  垃圾收集算法：
         //  标记清除 + 复制算法 = 标记整理
@@ -43,7 +43,7 @@ public class JVM {
         //      - Eden Space
         //      - Survivor Space = from Space + to Space
         //      - ratio = Eden : Survivor = 8 : 1
-        //  - 老年代(标记整理)
+        //  - 老年代(标记整理+标记清除)
         //      - 大对象直接进入老年代
         //      - 熬过一次GC，年龄加一，超过默认15岁进入老年代
         //  - 方法区(永久代 / 元空间)
@@ -79,7 +79,7 @@ public class JVM {
         //  https://blog.csdn.net/pf1234321/article/details/82288921
         //
         //  JAVA 8默认
-        //  -server -Xmx2048m -Xms2048m -Xmn758m -Xss256k -XX:SurvivorRatio=6 -XX:ParallelGCThreads=8 -XX:+PrintGC -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintHeapAtGC -Xloggc:/usr/share/tomcat/logs/gc.log
+        //  -server -Xms2048m -Xmx2048m -Xmn758m -Xss256k -XX:SurvivorRatio=6 -XX:ParallelGCThreads=8 -XX:+PrintGC -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintHeapAtGC -Xloggc:/usr/share/tomcat/logs/gc.log
         //
         //  JAVA10默认
         //  -XX:+UseCompressedClassPointers -XX:+UseCompressedOops -XX:+UseG1GC

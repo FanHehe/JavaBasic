@@ -37,7 +37,7 @@ public class MyAnnotation {
     // @Native
     // @Repeatable
     //
-    // java.lang.reflect.AnnotatedElement接口定义了基本的注解操作，而Class类实现了AnnotatedElement接口
+    // java.lang.reflect.AnnotatedElement 接口定义了基本的注解操作，而Class类实现了AnnotatedElement接口
     //
     // public final class Class<T> implements java.io.Serializable,
     //                          GenericDeclaration,
@@ -49,8 +49,8 @@ public class MyAnnotation {
 
     @FieldOrMethod
     public static void main(String[] args) {
-         Annotation[] annotations = MyAnnotation
-            .class.getAnnotations();
+         Annotation[] annotations
+            = MyAnnotation.class.getAnnotations();
 
         out.println("length =>" + String.valueOf(annotations.length));
 

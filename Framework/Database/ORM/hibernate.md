@@ -207,5 +207,12 @@ class HibernateUtils {
 }
 ```
 
+<!-- 瞬时态(transiant),持久态(persistent),游离态(detached) -->
+
+# 瞬时态 -> (save/saveOrUpdate)-> 持久态
+# 持久态 -> (delete) -> 成瞬时态
+# 持久态 -> (close/clear/evict) -> 游离态
+# 游离态 -> (update/saveOrUpdate/lock) -> 持久态
+
 > lazy: https://www.cnblogs.com/zanglitao/p/3818098.html
 
